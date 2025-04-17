@@ -1,0 +1,14 @@
+{
+    "Mayor Bob": {
+      "name": "Mayor Bob",
+      "x": 300,
+      "y": 250,
+      "dialogue": "Welcome to our fine town!"
+    },
+    "Shopkeeper": {
+      "name": "Shopkeeper",
+      "x": 500,
+      "y": 300,
+      "dialogue": "Take a look at my wares!"
+    }
+  }

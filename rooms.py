@@ -66,7 +66,7 @@ class RoomManager:
 
 
 def load_rooms():
-    with open('rooms.json', 'r') as file:
+    with open('data/rooms.json', 'r') as file:
         rooms_data = json.load(file)
 
     rooms = {}

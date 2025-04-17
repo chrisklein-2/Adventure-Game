@@ -3,6 +3,7 @@ import settings
 import sys
 from player import Player
 import rooms as rm
+import npcs
 
 # Initialize Pygame
 pygame.init()
@@ -23,6 +24,7 @@ def game_loop():
     running = True
     npc = pygame.Rect(300, 100, 20, 20)  # NPC position (just a rectangle for this example)
     
+    npc_list = npcs.load_npcs()    
     rooms = rm.load_rooms()  # Load the rooms from the JSON file
     room_manager = rm.RoomManager(rooms, 'forest')
     pygame.display.set_caption("The Forest")
