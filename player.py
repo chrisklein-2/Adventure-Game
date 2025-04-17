@@ -19,13 +19,17 @@ class Player:
     #lets the player move around with arrow keys
     def handle_movement(self, keys):
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            self.x -= settings.PLAYER_SPEED
+            if self.x > 0:
+                self.x -= settings.PLAYER_SPEED
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            self.x += settings.PLAYER_SPEED
+            if self.x < settings.SCREEN_WIDTH - self.rect.width:
+                self.x += settings.PLAYER_SPEED
         if keys[pygame.K_UP] or keys[pygame.K_w]:
-            self.y -= settings.PLAYER_SPEED
+            if self.y > 0:
+                self.y -= settings.PLAYER_SPEED
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            self.y += settings.PLAYER_SPEED
+            if self.y < settings.SCREEN_HEIGHT - self.rect.height:
+                self.y += settings.PLAYER_SPEED
         
         # Update player's rect position after moving
         self.rect.x = self.x
