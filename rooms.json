@@ -1,0 +1,27 @@
+{
+    "bar": {
+        "name": "The Bar",
+        "description": "Just an ordinary bar.",
+        "background": "assets/images/bar.jpg",
+        "exits": {
+            "north": "forest",
+            "east": "path"
+        }
+    },
+    "forest": {
+        "name": "The Forest",
+        "description": "A lovely lush forest",
+        "background": "assets/images/forest.jpg",
+        "exits": {
+            "south": "bar"
+        }
+    },
+    "path": {
+        "name": "Dirt Path",
+        "description": "A lovely lush forest",
+        "background": "assets/images/dirt.jpg",
+        "exits": {
+            "west": "bar"
+        }
+    }
+}
