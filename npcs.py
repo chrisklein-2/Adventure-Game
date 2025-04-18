@@ -22,6 +22,7 @@ class NPC(pygame.sprite.Sprite):
         """Any logic for updating NPC's state could go here."""
         pass
 
+#loads in npcs as a dictionary
 def load_npcs():
     with open("data/npcs.json", "r") as f:
         data = json.load(f)

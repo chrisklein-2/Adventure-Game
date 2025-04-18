@@ -49,7 +49,7 @@ class RoomManager:
         self.rooms = rooms  # Dictionary of room_name: Room instance
         self.current_room = self.rooms[start_room]
 
-
+    #switches to another room
     def switch_room(self, new_room_name):
         if new_room_name in self.rooms:
             self.current_room = self.rooms[new_room_name]
@@ -57,27 +57,34 @@ class RoomManager:
         else:
             print(f"Room '{new_room_name}' not found.")
 
+    #determines if the player has entered another room
     def update(self, player):
         direction = self.current_room.update(player, self)
         if self.current_room.next_room:
             player.reset_position(direction)
             self.switch_room(self.current_room.next_room)
 
+    #draws the player
     def draw(self, screen):
         self.current_room.draw(screen)
 
 
+#loads in the rooms from the json
 def load_rooms(npc_list):
     with open('data/rooms.json', 'r') as file:
         rooms_data = json.load(file)
 
+    #dictionary that holds all the room information
     rooms = {}
     for room_name, room_info in rooms_data.items():
         background = pygame.image.load(room_info['background'])
         exits = room_info['exits']
+
+        #gets the npcs in the room
         npc_names = room_info.get("npcs", [])
         npcs_in_room = [npc_list[name] for name in npc_names if name in npc_list]
         
+        #sets up the room
         room = Room(
             room_info['name'], 
             room_info['description'], 
@@ -85,6 +92,7 @@ def load_rooms(npc_list):
             exits,
             npcs_in_room
         )
+        #adds the room
         rooms[room_name] = room
 
 
