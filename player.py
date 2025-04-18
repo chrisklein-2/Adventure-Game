@@ -9,7 +9,7 @@ class Player:
         self.speed = speed
         self.rect = pygame.Rect(x, y, 20, 20)  # rectangle for collision detection
         self.color = (0, 0, 255)  # the players color
-
+        self.can_move = True
 
     def update(self, keys, npcs=None):
         self.handle_movement(keys, npcs)
@@ -17,19 +17,22 @@ class Player:
 
     #lets the player move around with arrow keys
     def handle_movement(self, keys, npcs):
+        if not self.can_move:
+            return
+
         dx, dy = 0, 0
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             if self.x > 0:
-                dx -= settings.PLAYER_SPEED
+                dx -= self.speed
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             if self.x < settings.SCREEN_WIDTH - self.rect.width:
-                dx += settings.PLAYER_SPEED
+                dx += self.speed
         if keys[pygame.K_UP] or keys[pygame.K_w]:
             if self.y > 0:
-                dy -= settings.PLAYER_SPEED
+                dy -= self.speed
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             if self.y < settings.SCREEN_HEIGHT - self.rect.height:
-                dy += settings.PLAYER_SPEED
+                dy += self.speed
         
         new_rect = self.rect.move(dx, dy)
         #checks if there is an npc in the way
@@ -60,12 +63,11 @@ class Player:
                     for quest_id in quest_manager.quests:
                         if quest_manager.is_quest_active(quest_id):
                             if npc.name == quest_manager.get_current_npc(quest_id):
-                                
+
                                 #finds where the player is in quest then gets the dialogue associated with it
                                 current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
                                 dialogue_manager.start_dialogue(npc, current_step["dialogue"])
-                                dialogue_manager.advance(text_box)
-
+                                dialogue_manager.advance(text_box, self)
                                 quest_manager.advance_quest(quest_id)
                                 return
                     #if it isn't then it just says its dialogue

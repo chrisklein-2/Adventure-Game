@@ -14,6 +14,7 @@ pygame.init()
 # Set up display
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
 text_box = TextBox(760, 100)  # display text, slightly smaller than full width
+text_box.show("Press e to interact!")
 font = pygame.font.Font(None, 36)  # font for text rendering
 pygame.display.set_caption("Adventure Game")
 
@@ -21,17 +22,18 @@ pygame.display.set_caption("Adventure Game")
 clock = pygame.time.Clock()
 
 def game_loop():
+    intro_message = True
 
     player = Player(400, 300, 5)
 
     # Main game loop
     running = True
-    npc = pygame.Rect(300, 100, 20, 20)  # NPC position (just a rectangle for this example)
     
     npc_list = npcs.load_npcs()    
-    rooms = rm.load_rooms(npc_list)  # Load the rooms from the JSON file
+    rooms = rm.load_rooms(npc_list)  
     room_manager = rm.RoomManager(rooms, 'town square')
     pygame.display.set_caption("Town Square")
+
     quest_manager = quests.QuestManager(quests.load_quests())
     dialogue_manager = dialogueManager.DialogueManager()
 
@@ -40,8 +42,13 @@ def game_loop():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if dialogue_manager.active and event.key == pygame.K_e:
-                    dialogue_manager.advance(text_box)
+                if intro_message:
+                    text_box.hide()
+                    intro_message = False
+                if dialogue_manager.active:
+                    player.can_move=False
+                    if event.key == pygame.K_e:
+                        dialogue_manager.advance(text_box, player)
                 else:
                     player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager)
 
