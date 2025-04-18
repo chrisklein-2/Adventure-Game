@@ -12,12 +12,18 @@ class NPC(pygame.sprite.Sprite):
         self.y = y
         self.dialogue = dialogue
         self.dialogue_index = 0
-        self.image = image if image else pygame.Surface((40, 40))  # default placeholder size for NPC
-        self.rect = self.image.get_rect(topleft=(self.x, self.y))
         self.direction = None
         self.speed = 1
         self.last_move = time.time()
         self.move_interval = random.uniform(1,3)
+        
+        if image: 
+            self.image = pygame.image.load(image).convert_alpha()
+        else:
+            self.image = pygame.Surface((32, 32))  # default placeholder size for NPC
+        
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+        
 
     def check_next_line(self):
         if self.dialogue_index < len(self.dialogue):
@@ -77,7 +83,8 @@ def load_npcs():
             name=npc_data["name"],
             x=npc_data["x"],
             y=npc_data["y"],
-            dialogue=npc_data["dialogue"]
+            dialogue=npc_data["dialogue"],
+            image=npc_data.get("image")
         )
         npc_dict[npc_name] = npc
     return npc_dict

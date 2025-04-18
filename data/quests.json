@@ -39,5 +39,32 @@
         ],
         "current_step":0,
         "completed":false
+    },
+    "deliver the list" : {
+        "name": "Deliver the list",
+        "steps":[
+            {
+                "npc":"Shopkeeper",
+                "dialogue":[    
+                    {"speaker": "npc", "line": "I need to give the mayor 5 gold, a watch and this flag."},
+                    { "speaker": "npc", "line": "Can you bring them for me?" },
+                    {"speaker": "player", "line": "I suppose I could do that."},
+                    {"speaker": "npc", "line": "Thank you, you're a life saver!"}
+                ]
+            },
+            {
+                "npc":"Mayor Bob",
+                "dialogue":[
+                    { "speaker": "player", "line": "Hello Mayor Bob." },
+                    { "speaker": "player", "line": "The shopkeeper asked me to bring you these things" },
+                    { "speaker": "npc", "line": "Well thank you very much!" },
+                    { "speaker": "npc", "line": "We don't get enough nice folk like you around these parts." },
+                    { "speaker": "npc", "line": "let me know if you need anything." }
+                ]
+
+            }
+        ],
+        "current_step":0,
+        "completed":false
     }
 }

@@ -3,6 +3,7 @@
       "name": "Mayor Bob",
       "x": 300,
       "y": 250,
+      "image": "assets/images/face.png",
       "dialogue": ["Welcome to our fine town!", "I suppose you're new around here!"]
     },
     "Shopkeeper": {
