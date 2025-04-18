@@ -43,7 +43,7 @@ class Player:
         if keys[pygame.K_e]:
             for npc in npcs:
                 if self.rect.colliderect(npc.rect):
-                    text_box.show(f"{npc.name} says: Welcome to our town!")
+                    text_box.show(f"{npc.name} says: {npc.dialogue}")
 
     # player.py
     def reset_position(self, direction=None):

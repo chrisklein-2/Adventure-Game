@@ -23,19 +23,19 @@ class Room:
 
 
     def update(self, player, room_manager):
-         # Right edge (east)
+         # east aka right
         if player.rect.right >= settings.SCREEN_WIDTH and "east" in self.exits:
             self.next_room = self.exits["east"]
             return "east"
-        # Left edge (west)
+        # west aka left
         elif player.rect.left <= 0 and "west" in self.exits:
             self.next_room = self.exits["west"]
             return "west"
-        # Top edge (north)
+        # north aka top
         elif player.rect.top <= 0 and "north" in self.exits:
             self.next_room = self.exits["north"]
             return "south"
-        # Bottom edge (south)
+        # south aka bottom
         elif player.rect.bottom >= settings.SCREEN_HEIGHT and "south" in self.exits:
             self.next_room = self.exits["south"]
             return "north"
@@ -46,8 +46,8 @@ class Room:
 
 class RoomManager:
     def __init__(self, rooms, start_room):
-        self.rooms = rooms  # Dictionary of room_name: Room instance
-        self.current_room = self.rooms[start_room]
+        self.rooms = rooms  # dictionary containing the rooms
+        self.current_room = self.rooms[start_room] # current room
 
     #switches to another room
     def switch_room(self, new_room_name):

@@ -44,6 +44,9 @@ def game_loop():
         #update
         room_manager.update(player)
         
+        if keys[pygame.K_q]:
+            text_box.hide()
+        
         #draw
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
