@@ -45,16 +45,30 @@ class Player:
         pygame.draw.rect(screen, settings.BLUE, self.rect)
 
     #handles interactions with npcs
-    def handle_interaction(self, event, npcs, text_box):
+    def handle_interaction(self, event, npcs, text_box, quest_manager, dialogue_manager):
 
         #buffer zone for interacting with npcs
         buffer = 50
         buffer_rect = self.rect.inflate(buffer, buffer)
         
         if event.key == pygame.K_e:
+            #cycles through all the npcs in the room
             for npc in npcs:
                 if buffer_rect.colliderect(npc.rect):
+
+                    #checks if the npc is in any quest
+                    for quest_id in quest_manager.quests:
+                        if quest_manager.is_quest_active(quest_id):
+                            if npc.name == quest_manager.get_current_npc(quest_id):
+                                current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
+                                dialogue_manager.start_dialogue(npc.name, current_step["dialogue"])
+                                dialogue_manager.advance(text_box)
+
+                                quest_manager.advance_quest(quest_id)
+                                return
+                    #if it isn't then it just says its dialogue
                     line = npc.check_next_line()
+                    
                     if line:
                         npc.interact(text_box)
                     else:

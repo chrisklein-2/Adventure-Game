@@ -16,5 +16,11 @@
       "x": 300,
       "y": 200,
       "dialogue": ["What can I get ya?"]
+    },
+    "Useless Tom":{
+      "name": "Useless Tom",
+      "x": 100,
+      "y": 290,
+      "dialogue": ["Whats the point of this place?", "I'll never get a job."]
     }
   }

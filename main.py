@@ -5,7 +5,8 @@ from player import Player
 import rooms as rm
 import npcs
 from textbox import TextBox
-
+import quests
+import dialogueManager
 
 # Initialize Pygame
 pygame.init()
@@ -31,13 +32,17 @@ def game_loop():
     rooms = rm.load_rooms(npc_list)  # Load the rooms from the JSON file
     room_manager = rm.RoomManager(rooms, 'forest')
     pygame.display.set_caption("The Forest")
-    
+    quest_manager = quests.QuestManager(quests.load_quests())
+    dialogue_manager = dialogueManager.DialogueManager()
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                player.handle_interaction(event, room_manager.current_room.npcs, text_box)
+                if dialogue_manager.active and event.key == pygame.K_e:
+                    dialogue_manager.advance(text_box)
+                player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager)
 
         #handle input
         keys = pygame.key.get_pressed()

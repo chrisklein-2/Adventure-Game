@@ -16,7 +16,7 @@
         "exits": {
             "south": "bar"
         },
-        "npcs": ["Mayor Bob"]
+        "npcs": ["Mayor Bob", "Useless Tom"]
     },
     "path": {
         "name": "Dirt Path",

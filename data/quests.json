@@ -1,0 +1,17 @@
+{
+    "Speak with Tom":{
+        "name": "Speak with Tom",
+        "steps":[
+            {
+                "npc":"Useless Tom",
+                "dialogue": ["Mayor Bob wanted to talk to you.", "I think he's a bit weird, so be careful"]
+            },
+            {
+                "npc":"Mayor Bob",
+                "dialogue":["Hello there, I wanted to welcome you to our little town."]
+            }
+        ],
+        "current_step":0,
+        "completed":false
+    }
+}
