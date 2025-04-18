@@ -42,7 +42,7 @@ def game_loop():
         player.update(keys, text_box, room_manager.current_room.npcs)
 
         #update
-        room_manager.update(player)
+        room_manager.update(player, text_box)
         
         if keys[pygame.K_q]:
             text_box.hide()

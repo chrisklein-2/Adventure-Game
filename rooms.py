@@ -58,9 +58,10 @@ class RoomManager:
             print(f"Room '{new_room_name}' not found.")
 
     #determines if the player has entered another room
-    def update(self, player):
+    def update(self, player, text_box):
         direction = self.current_room.update(player, self)
         if self.current_room.next_room:
+            text_box.hide()
             player.reset_position(direction)
             self.switch_room(self.current_room.next_room)
 

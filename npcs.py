@@ -8,15 +8,14 @@ class NPC(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.dialogue = dialogue if dialogue else "Hello, traveler!"
-        self.image = image if image else pygame.Surface((40, 60))  # Default placeholder size for NPC
+        self.image = image if image else pygame.Surface((40, 40))  # Default placeholder size for NPC
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
     
     def draw(self, screen):
         screen.blit(self.image, self.rect.topleft)
     
-    def interact(self):
-        """Trigger an NPC interaction, such as displaying dialogue."""
-        print(f"{self.name}: {self.dialogue}")
+    def interact(self, text_box):
+        text_box.show(f"{self.name}: {self.dialogue}")
 
     def update(self):
         """Any logic for updating NPC's state could go here."""
