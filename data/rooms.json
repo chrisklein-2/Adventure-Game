@@ -6,7 +6,8 @@
         "exits": {
             "north": "forest",
             "east": "path"
-        }
+        },
+        "npcs": ["Bill the Bartender"]
     },
     "forest": {
         "name": "The Forest",
@@ -23,6 +24,7 @@
         "background": "assets/images/dirt.jpg",
         "exits": {
             "west": "bar"
-        }
+        },
+        "npcs": ["Shopkeeper"]
     }
 }

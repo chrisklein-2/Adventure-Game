@@ -10,5 +10,11 @@
       "x": 500,
       "y": 300,
       "dialogue": "Take a look at my wares!"
+    },
+    "Bill the Bartender":{
+      "name": "Bill the Bartender",
+      "x": 300,
+      "y": 200,
+      "dialogue": "What can I get ya?"
     }
   }
