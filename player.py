@@ -11,10 +11,10 @@ class Player:
         self.color = (0, 0, 255)  # Blue color for the player
 
 
-    def update(self, keys, npc=None):
+    def update(self, keys, text_box, npcs=None):
         self.handle_movement(keys)
-        if npc:
-            self.handle_interaction(keys, npc)
+        if npcs:
+            self.handle_interaction(keys, npcs, text_box)
 
     #lets the player move around with arrow keys
     def handle_movement(self, keys):
@@ -39,9 +39,11 @@ class Player:
     def draw(self, screen):
         pygame.draw.rect(screen, settings.BLUE, self.rect)
 
-    def handle_interaction(self, keys, npc):
-        if keys[pygame.K_e] and self.rect.colliderect(npc):
-            print("Interacted")
+    def handle_interaction(self, keys, npcs, text_box):
+        if keys[pygame.K_e]:
+            for npc in npcs:
+                if self.rect.colliderect(npc.rect):
+                    text_box.show(f"{npc.name} says: Welcome to our town!")
 
     # player.py
     def reset_position(self, direction=None):

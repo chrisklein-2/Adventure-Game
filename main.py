@@ -4,12 +4,15 @@ import sys
 from player import Player
 import rooms as rm
 import npcs
+from textbox import TextBox
+
 
 # Initialize Pygame
 pygame.init()
 
 # Set up display
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
+text_box = TextBox(760, 100)  # slightly smaller than full width
 font = pygame.font.Font(None, 36)  # Font for text rendering
 pygame.display.set_caption("Adventure Game")
 
@@ -36,7 +39,7 @@ def game_loop():
 
         #handle input
         keys = pygame.key.get_pressed()
-        player.update(keys, npc)
+        player.update(keys, text_box, room_manager.current_room.npcs)
 
         #update
         room_manager.update(player)
@@ -45,6 +48,7 @@ def game_loop():
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
         player.draw(screen)
+        text_box.draw(screen)
 
         pygame.display.flip()
 
