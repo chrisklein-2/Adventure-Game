@@ -50,5 +50,5 @@ class TextBox:
         if current_line:
             lines.append(current_line)
         lines.append("")
-        lines.append("Press q to close screen...")
+        lines.append("Press Q to close screen or press E to continue...")
         return lines
