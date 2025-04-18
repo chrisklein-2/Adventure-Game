@@ -14,7 +14,7 @@ class Room:
 
     def draw(self, screen):
         # Draw background image or color
-        if isinstance(self.background, pygame.Surface):  # If background is a pygame surface (image)
+        if isinstance(self.background, pygame.Surface):  # if background is an image
             screen.blit(self.background, (0, 0))
         else:  # If background is a color
             screen.fill(self.background)
@@ -59,6 +59,8 @@ class RoomManager:
 
     #determines if the player has entered another room
     def update(self, player, text_box):
+        for npc in self.current_room.npcs:
+            npc.wander(player)
         direction = self.current_room.update(player, self)
         if self.current_room.next_room:
             text_box.hide()

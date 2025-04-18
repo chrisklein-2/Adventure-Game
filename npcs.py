@@ -1,5 +1,8 @@
 import pygame
 import json
+import time
+import random
+import settings
 
 class NPC(pygame.sprite.Sprite):
     def __init__(self, name, x, y, dialogue=None, image=None):
@@ -11,13 +14,16 @@ class NPC(pygame.sprite.Sprite):
         self.dialogue_index = 0
         self.image = image if image else pygame.Surface((40, 40))  # default placeholder size for NPC
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
-    
-    def get_next_line(self):
+        self.direction = None
+        self.speed = 1
+        self.last_move = time.time()
+        self.move_interval = random.uniform(1,3)
+
+    def check_next_line(self):
         if self.dialogue_index < len(self.dialogue):
-            line = self.dialogue[self.dialogue_index]
-            return line
+            return True
         else:
-            return None  # dialogue finished
+            return False  # dialogue finished
 
     def reset_dialogue(self):
         self.dialogue_index = 0
@@ -29,7 +35,32 @@ class NPC(pygame.sprite.Sprite):
         text_box.show(f"{self.name}: {self.dialogue[self.dialogue_index]}")
         self.dialogue_index += 1
 
+    def wander(self, player):
+        #chooses which direction to go at random given an intervel of time
+        current_time = time.time()
+        if current_time - self.last_move > self.move_interval:
+            self.direction = random.choice(["up", "down", "left", "right", None])
+            self.move_interval = random.uniform(1, 3)
+            self.last_move = current_time
         
+         # stores current position
+        new_rect = self.rect.copy()
+        
+        # makes the possible npc move
+        if self.direction == "up":
+            new_rect.y -= self.speed
+        elif self.direction == "down":
+            new_rect.y += self.speed
+        elif self.direction == "left":
+            new_rect.x -= self.speed
+        elif self.direction == "right":
+            new_rect.x += self.speed
+
+        # makes sure it doesn't colide with player
+        new_rect.clamp_ip(pygame.Rect(0, 0, settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
+        if player and not new_rect.colliderect(player.rect):
+            #makes the move
+            self.rect = new_rect
 
     def update(self):
         #any logic for updating NPC's state could go here

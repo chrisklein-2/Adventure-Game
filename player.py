@@ -54,7 +54,7 @@ class Player:
         if event.key == pygame.K_e:
             for npc in npcs:
                 if buffer_rect.colliderect(npc.rect):
-                    line = npc.get_next_line()
+                    line = npc.check_next_line()
                     if line:
                         npc.interact(text_box)
                     else:
