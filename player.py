@@ -7,8 +7,8 @@ class Player:
         self.x = x
         self.y = y
         self.speed = speed
-        self.rect = pygame.Rect(x, y, 20, 20)  # Rect for collision detection
-        self.color = (0, 0, 255)  # Blue color for the player
+        self.rect = pygame.Rect(x, y, 20, 20)  # rectangle for collision detection
+        self.color = (0, 0, 255)  # the players color
 
 
     def update(self, keys, text_box, npcs=None):
@@ -33,8 +33,9 @@ class Player:
                 dy += settings.PLAYER_SPEED
         
         new_rect = self.rect.move(dx, dy)
+        #checks if there is an npc in the way
         if not any(new_rect.colliderect(npc.rect) for npc in npcs):
-            # Update player's rect position after moving
+            # update player's position after moving
             self.x += dx
             self.y += dy
             self.rect.x = self.x
@@ -44,15 +45,19 @@ class Player:
     def draw(self, screen):
         pygame.draw.rect(screen, settings.BLUE, self.rect)
 
+    #handles interactions with npcs
     def handle_interaction(self, keys, npcs, text_box):
+
+        #buffer zone for interacting with npcs
         buffer = 50
         buffer_rect = self.rect.inflate(buffer, buffer)
+        
         if keys[pygame.K_e]:
             for npc in npcs:
                 if buffer_rect.colliderect(npc.rect):
                     npc.interact(text_box)
 
-    # player.py
+    #moves player to appropriate position after changing rooms
     def reset_position(self, direction=None):
         if direction == "south":
             self.y = settings.SCREEN_HEIGHT - 20

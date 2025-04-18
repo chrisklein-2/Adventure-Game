@@ -8,7 +8,7 @@ class NPC(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.dialogue = dialogue if dialogue else "Hello, traveler!"
-        self.image = image if image else pygame.Surface((40, 40))  # Default placeholder size for NPC
+        self.image = image if image else pygame.Surface((40, 40))  # default placeholder size for NPC
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
     
     def draw(self, screen):
@@ -18,7 +18,7 @@ class NPC(pygame.sprite.Sprite):
         text_box.show(f"{self.name}: {self.dialogue}")
 
     def update(self):
-        """Any logic for updating NPC's state could go here."""
+        #any logic for updating NPC's state could go here
         pass
 
 #loads in npcs as a dictionary
