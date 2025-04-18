@@ -12,37 +12,44 @@ class Player:
 
 
     def update(self, keys, text_box, npcs=None):
-        self.handle_movement(keys)
+        self.handle_movement(keys, npcs)
         if npcs:
             self.handle_interaction(keys, npcs, text_box)
 
     #lets the player move around with arrow keys
-    def handle_movement(self, keys):
+    def handle_movement(self, keys, npcs):
+        dx, dy = 0, 0
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             if self.x > 0:
-                self.x -= settings.PLAYER_SPEED
+                dx -= settings.PLAYER_SPEED
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             if self.x < settings.SCREEN_WIDTH - self.rect.width:
-                self.x += settings.PLAYER_SPEED
+                dx += settings.PLAYER_SPEED
         if keys[pygame.K_UP] or keys[pygame.K_w]:
             if self.y > 0:
-                self.y -= settings.PLAYER_SPEED
+                dy -= settings.PLAYER_SPEED
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             if self.y < settings.SCREEN_HEIGHT - self.rect.height:
-                self.y += settings.PLAYER_SPEED
+                dy += settings.PLAYER_SPEED
         
-        # Update player's rect position after moving
-        self.rect.x = self.x
-        self.rect.y = self.y
+        new_rect = self.rect.move(dx, dy)
+        if not any(new_rect.colliderect(npc.rect) for npc in npcs):
+            # Update player's rect position after moving
+            self.x += dx
+            self.y += dy
+            self.rect.x = self.x
+            self.rect.y = self.y
 
     #draws the player
     def draw(self, screen):
         pygame.draw.rect(screen, settings.BLUE, self.rect)
 
     def handle_interaction(self, keys, npcs, text_box):
+        buffer = 50
+        buffer_rect = self.rect.inflate(buffer, buffer)
         if keys[pygame.K_e]:
             for npc in npcs:
-                if self.rect.colliderect(npc.rect):
+                if buffer_rect.colliderect(npc.rect):
                     text_box.show(f"{npc.name} says: {npc.dialogue}")
 
     # player.py
