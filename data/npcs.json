@@ -3,18 +3,18 @@
       "name": "Mayor Bob",
       "x": 300,
       "y": 250,
-      "dialogue": "Welcome to our fine town!"
+      "dialogue": ["Welcome to our fine town!", "I suppose you're new around here!"]
     },
     "Shopkeeper": {
       "name": "Shopkeeper",
       "x": 500,
       "y": 300,
-      "dialogue": "Take a look at my wares!"
+      "dialogue": ["Take a look at my wares!"]
     },
     "Bill the Bartender":{
       "name": "Bill the Bartender",
       "x": 300,
       "y": 200,
-      "dialogue": "What can I get ya?"
+      "dialogue": ["What can I get ya?"]
     }
   }

@@ -11,10 +11,9 @@ class Player:
         self.color = (0, 0, 255)  # the players color
 
 
-    def update(self, keys, text_box, npcs=None):
+    def update(self, keys, npcs=None):
         self.handle_movement(keys, npcs)
-        if npcs:
-            self.handle_interaction(keys, npcs, text_box)
+
 
     #lets the player move around with arrow keys
     def handle_movement(self, keys, npcs):
@@ -46,16 +45,23 @@ class Player:
         pygame.draw.rect(screen, settings.BLUE, self.rect)
 
     #handles interactions with npcs
-    def handle_interaction(self, keys, npcs, text_box):
+    def handle_interaction(self, event, npcs, text_box):
 
         #buffer zone for interacting with npcs
         buffer = 50
         buffer_rect = self.rect.inflate(buffer, buffer)
         
-        if keys[pygame.K_e]:
+        if event.key == pygame.K_e:
             for npc in npcs:
                 if buffer_rect.colliderect(npc.rect):
-                    npc.interact(text_box)
+                    line = npc.get_next_line()
+                    if line:
+                        npc.interact(text_box)
+                    else:
+                        text_box.hide()
+                        npc.reset_dialogue()
+                        npc.interact(text_box)
+                    break
 
     #moves player to appropriate position after changing rooms
     def reset_position(self, direction=None):

@@ -36,10 +36,13 @@ def game_loop():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                player.handle_interaction(event, room_manager.current_room.npcs, text_box)
 
         #handle input
         keys = pygame.key.get_pressed()
-        player.update(keys, text_box, room_manager.current_room.npcs)
+        player.update(keys, room_manager.current_room.npcs)
+
 
         #update
         room_manager.update(player, text_box)

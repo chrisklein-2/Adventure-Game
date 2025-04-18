@@ -7,15 +7,29 @@ class NPC(pygame.sprite.Sprite):
         self.name = name
         self.x = x
         self.y = y
-        self.dialogue = dialogue if dialogue else "Hello, traveler!"
+        self.dialogue = dialogue
+        self.dialogue_index = 0
         self.image = image if image else pygame.Surface((40, 40))  # default placeholder size for NPC
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
     
+    def get_next_line(self):
+        if self.dialogue_index < len(self.dialogue):
+            line = self.dialogue[self.dialogue_index]
+            return line
+        else:
+            return None  # dialogue finished
+
+    def reset_dialogue(self):
+        self.dialogue_index = 0
+
     def draw(self, screen):
         screen.blit(self.image, self.rect.topleft)
     
     def interact(self, text_box):
-        text_box.show(f"{self.name}: {self.dialogue}")
+        text_box.show(f"{self.name}: {self.dialogue[self.dialogue_index]}")
+        self.dialogue_index += 1
+
+        
 
     def update(self):
         #any logic for updating NPC's state could go here
