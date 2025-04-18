@@ -14,7 +14,8 @@
         "background": "assets/images/forest.jpg",
         "exits": {
             "south": "bar"
-        }
+        },
+        "npcs": ["Mayor Bob"]
     },
     "path": {
         "name": "Dirt Path",

@@ -25,7 +25,7 @@ def game_loop():
     npc = pygame.Rect(300, 100, 20, 20)  # NPC position (just a rectangle for this example)
     
     npc_list = npcs.load_npcs()    
-    rooms = rm.load_rooms()  # Load the rooms from the JSON file
+    rooms = rm.load_rooms(npc_list)  # Load the rooms from the JSON file
     room_manager = rm.RoomManager(rooms, 'forest')
     pygame.display.set_caption("The Forest")
     

@@ -18,6 +18,8 @@ class Room:
             screen.blit(self.background, (0, 0))
         else:  # If background is a color
             screen.fill(self.background)
+        for npc in self.npcs:
+            npc.draw(screen)
 
 
     def update(self, player, room_manager):
@@ -65,7 +67,7 @@ class RoomManager:
         self.current_room.draw(screen)
 
 
-def load_rooms():
+def load_rooms(npc_list):
     with open('data/rooms.json', 'r') as file:
         rooms_data = json.load(file)
 
@@ -73,7 +75,18 @@ def load_rooms():
     for room_name, room_info in rooms_data.items():
         background = pygame.image.load(room_info['background'])
         exits = room_info['exits']
-        room = Room(room_info['name'], room_info['description'], background, exits)
+        npc_names = room_info.get("npcs", [])
+        npcs_in_room = [npc_list[name] for name in npc_names if name in npc_list]
+        
+        room = Room(
+            room_info['name'], 
+            room_info['description'], 
+            background, 
+            exits,
+            npcs_in_room
+        )
         rooms[room_name] = room
+
+
     return rooms
 
