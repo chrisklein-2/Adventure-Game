@@ -18,7 +18,9 @@ class DialogueManager:
     #keeps dialogue going waiting for the next line
     def advance(self, text_box):
         if self.current_line < len(self.dialogue_lines):
-            text_box.show(f"{self.npc_name} says: {self.dialogue_lines[self.current_line]}")
+            line = self.dialogue_lines[self.current_line]
+            speaker = "You say" if line["speaker"] == "player" else self.npc_name+" says"
+            text_box.show(f"{speaker}: {line['line']}")
             self.current_line += 1
         else:
             self.end(text_box)
