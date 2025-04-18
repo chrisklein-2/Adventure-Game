@@ -30,8 +30,8 @@ def game_loop():
     
     npc_list = npcs.load_npcs()    
     rooms = rm.load_rooms(npc_list)  # Load the rooms from the JSON file
-    room_manager = rm.RoomManager(rooms, 'forest')
-    pygame.display.set_caption("The Forest")
+    room_manager = rm.RoomManager(rooms, 'town square')
+    pygame.display.set_caption("Town Square")
     quest_manager = quests.QuestManager(quests.load_quests())
     dialogue_manager = dialogueManager.DialogueManager()
 

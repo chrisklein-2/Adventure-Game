@@ -60,6 +60,8 @@ class Player:
                     for quest_id in quest_manager.quests:
                         if quest_manager.is_quest_active(quest_id):
                             if npc.name == quest_manager.get_current_npc(quest_id):
+                                
+                                #finds where the player is in quest then gets the dialogue associated with it
                                 current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
                                 dialogue_manager.start_dialogue(npc, current_step["dialogue"])
                                 dialogue_manager.advance(text_box)

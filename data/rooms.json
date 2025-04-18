@@ -5,7 +5,8 @@
         "background": "assets/images/bar.jpg",
         "exits": {
             "north": "forest",
-            "east": "path"
+            "east": "path",
+            "west": "town square"
         },
         "npcs": ["Bill the Bartender"]
     },
@@ -16,7 +17,7 @@
         "exits": {
             "south": "bar"
         },
-        "npcs": ["Mayor Bob", "Useless Tom"]
+        "npcs": []
     },
     "path": {
         "name": "Dirt Path",
@@ -26,5 +27,44 @@
             "west": "bar"
         },
         "npcs": ["Shopkeeper"]
+    },
+    "town square": {
+        "name": "Town Square",
+        "description": "A lovely little town.",
+        "background": "assets/images/dirt.jpg",
+        "exits": {
+            "north": "garden",
+            "east": "bar",
+            "west": "shop",
+            "south": "housing"
+        },
+        "npcs": ["Mayor Bob", "Useless Tom"]
+    },
+    "shop": {
+        "name": "Town Shop",
+        "description": "A small shop for the town.",
+        "background": "assets/images/dirt.jpg",
+        "exits": {
+            "east": "town square"
+        },
+        "npcs": []
+    },
+    "garden": {
+        "name": "Town Garden",
+        "description": "A small garden for the town.",
+        "background": "assets/images/forest.jpg",
+        "exits": {
+            "south": "town square"
+        },
+        "npcs": []
+    },
+    "housing": {
+        "name": "Housing",
+        "description": "A local place to house the townsfolk.",
+        "background": "assets/images/dirt.jpg",
+        "exits": {
+            "north": "town square"
+        },
+        "npcs": []
     }
 }

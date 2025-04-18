@@ -27,10 +27,6 @@ class QuestManager:
             if quest["current_step"] >= len(quest["steps"]):
                 quest["completed"] = True
 
-    def quest_dialogue(self, dialogue, text_box, npc):
-        
-        for line in dialogue:
-            text_box.show(f"{npc.name} says: {line}")
 
 
 def load_quests():
