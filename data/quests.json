@@ -7,7 +7,7 @@
                 "dialogue":[    
                     {"speaker": "npc", "line": "Mayor Bob wanted to talk to you."},
                     {"speaker": "player", "line": "Whats he like?"},
-                    {"speaker":"npc", "line": "I think he's a bit weird, so be careful"}
+                    {"speaker": "npc", "line": "I think he's a bit weird, so be careful"}
                 ]
             },
             {
@@ -15,7 +15,27 @@
                 "dialogue":[
                     {"speaker":"npc","line":"Hello there, I wanted to welcome you to our little town."}
                 ]
+            },
+            {
+                "npc":"Useless Tom",
+                "dialogue":[    
+                    {"speaker": "npc", "line": "What did he want?"},
+                    {"speaker": "player", "line": "He just wanted to welcome me to the town."},
+                    {"speaker": "npc", "line": "Like I said, hes weird"},
+                    {"speaker": "npc", "line": "Have you met Bill the Bartender?"},
+                    {"speaker": "player", "line": "No, should I?"},
+                    {"speaker": "npc", "line": "Do you have anything better to do?"}
+                ]
+            },
+            {
+                "npc":"Bill the Bartender",
+                "dialogue":[
+                    {"speaker": "player", "line": "Tom wanted me to introduce myself."},
+                    {"speaker":"npc","line":"Tom is just a lazy man, but its nice to meet you."},
+                    {"speaker": "player", "line": "Thanks... I guess"}
+                ]
             }
+
         ],
         "current_step":0,
         "completed":false
