@@ -61,7 +61,7 @@ class Player:
                         if quest_manager.is_quest_active(quest_id):
                             if npc.name == quest_manager.get_current_npc(quest_id):
                                 current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
-                                dialogue_manager.start_dialogue(npc.name, current_step["dialogue"])
+                                dialogue_manager.start_dialogue(npc, current_step["dialogue"])
                                 dialogue_manager.advance(text_box)
 
                                 quest_manager.advance_quest(quest_id)

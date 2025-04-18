@@ -42,7 +42,8 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 if dialogue_manager.active and event.key == pygame.K_e:
                     dialogue_manager.advance(text_box)
-                player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager)
+                else:
+                    player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager)
 
         #handle input
         keys = pygame.key.get_pressed()

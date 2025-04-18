@@ -4,13 +4,16 @@ class DialogueManager:
         self.dialogue_lines = []
         self.current_line = 0
         self.npc_name = ""
+        self.npc = None
     
     #begins the dialogue then keeps it active until its through
-    def start_dialogue(self, npc_name, lines):
+    def start_dialogue(self, npc, lines):
         self.dialogue_lines = lines
         self.current_line = 0
         self.active = True
-        self.npc_name = npc_name
+        self.npc_name = npc.name
+        self.npc = npc
+        npc.speed = 0
     
     #keeps dialogue going waiting for the next line
     def advance(self, text_box):
@@ -24,3 +27,4 @@ class DialogueManager:
     def end(self, text_box):
         text_box.hide()
         self.active = False
+        self.npc.speed = 1
