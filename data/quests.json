@@ -13,7 +13,9 @@
             {
                 "npc":"Mayor Bob",
                 "dialogue":[
-                    {"speaker":"npc","line":"Hello there, I wanted to welcome you to our little town."}
+                    {"speaker":"player", "line": "Tom said you wanted to talk to me."},
+                    {"speaker":"npc","line":"Hello there, I wanted to welcome you to our little town."},
+                    {"speaker":"npc", "line":"Say hi to Tom for me!"}
                 ]
             },
             {

@@ -19,8 +19,14 @@ class DialogueManager:
     def advance(self, text_box, player):
         if self.current_line < len(self.dialogue_lines):
             line = self.dialogue_lines[self.current_line]
-            speaker = "You say" if line["speaker"] == "player" else self.npc_name + " says"
-            text_box.show(f"{speaker}: {line['line']}")
+            speaker = "" 
+            if line["speaker"] == "player":
+                 speaker = "You say :"
+            elif line["speaker"] == "npc": 
+                speaker = self.npc_name + " says:"
+            else:
+                speaker = ""
+            text_box.show(f"{speaker} {line['line']}")
             self.current_line += 1
         else:
             player.can_move = True
