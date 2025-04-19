@@ -58,12 +58,13 @@ class RoomManager:
             print(f"Room '{new_room_name}' not found.")
 
     # determines if the player has entered another room
-    def update(self, player, text_box):
+    def update(self, player, text_box, hud):
         for npc in self.current_room.npcs:
             npc.wander(player)
         direction = self.current_room.update(player, self)
         if self.current_room.next_room:
             text_box.hide()
+            hud.room = self.current_room.next_room # changes the name on the hud
             player.reset_position(direction)
             self.switch_room(self.current_room.next_room)
 

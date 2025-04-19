@@ -7,7 +7,7 @@ import npcs
 from textbox import TextBox
 import quests
 import dialogueManager
-
+from hud import HUD
 # Initialize Pygame
 pygame.init()
 
@@ -17,6 +17,7 @@ text_box = TextBox(760, 100)  # display text, slightly smaller than full width
 text_box.show("Use the arrow keys or WASD to move! Press E to interact!")
 font = pygame.font.Font(None, 36)  # font for text rendering
 pygame.display.set_caption("Adventure Game")
+hud = HUD()
 
 # set up clock
 clock = pygame.time.Clock()
@@ -31,7 +32,7 @@ def game_loop():
     
     npc_list = npcs.load_npcs()    
     rooms = rm.load_rooms(npc_list)  
-    room_manager = rm.RoomManager(rooms, 'town square')
+    room_manager = rm.RoomManager(rooms, settings.StarterRoom)
     pygame.display.set_caption("Town Square")
 
     quest_manager = quests.QuestManager(quests.load_quests())
@@ -54,11 +55,11 @@ def game_loop():
 
         # handle input
         keys = pygame.key.get_pressed()
-        player.update(keys, room_manager.current_room.npcs)
+        player.update(keys, hud, room_manager.current_room.npcs)
 
 
         # update
-        room_manager.update(player, text_box)
+        room_manager.update(player, text_box, hud)
         
         if keys[pygame.K_q]:
             text_box.hide()
@@ -68,6 +69,7 @@ def game_loop():
         room_manager.draw(screen)
         player.draw(screen)
         text_box.draw(screen)
+        hud.draw(screen)
 
         pygame.display.flip()
 

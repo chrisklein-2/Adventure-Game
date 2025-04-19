@@ -11,12 +11,12 @@ class Player:
         self.color = (0, 0, 255)  # the players color
         self.can_move = True
 
-    def update(self, keys, npcs=None):
-        self.handle_movement(keys, npcs)
+    def update(self, keys, hud, npcs=None):
+        self.handle_movement(keys, hud, npcs)
 
 
     #lets the player move around with arrow keys
-    def handle_movement(self, keys, npcs):
+    def handle_movement(self, keys, hud, npcs):
         if not self.can_move:
             return
 
@@ -35,13 +35,20 @@ class Player:
                 dy += self.speed
         
         new_rect = self.rect.move(dx, dy)
-        #checks if there is an npc in the way
+        # collision detection for npcs
         if not any(new_rect.colliderect(npc.rect) for npc in npcs):
             # update player's position after moving
             self.x += dx
             self.y += dy
             self.rect.x = self.x
             self.rect.y = self.y
+
+        # collison detection for the hud
+        if new_rect.colliderect(hud.hud_rect):
+            if hud.left == 0:
+                hud.left = settings.SCREEN_WIDTH-hud.width
+            else:
+                hud.left = 0
 
     #draws the player
     def draw(self, screen):

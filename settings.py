@@ -16,3 +16,6 @@ BLUE  = (0, 0, 255)
 IMAGE_DIR = "assets/images"
 SOUND_DIR = "assets/sounds"
 FONT_DIR = "assets/fonts"
+
+
+StarterRoom = "town square"
