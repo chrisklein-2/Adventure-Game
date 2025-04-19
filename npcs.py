@@ -42,14 +42,15 @@ class NPC(pygame.sprite.Sprite):
         self.dialogue_index += 1
 
     def wander(self, player):
-        #chooses which direction to go at random given an intervel of time
+
+        # chooses which direction to go at random given an intervel of time
         current_time = time.time()
         if current_time - self.last_move > self.move_interval:
             self.direction = random.choice(["up", "down", "left", "right", None])
             self.move_interval = random.uniform(1, 3)
             self.last_move = current_time
         
-         # stores current position
+        # stores current position
         new_rect = self.rect.copy()
         
         # makes the possible npc move
@@ -65,14 +66,11 @@ class NPC(pygame.sprite.Sprite):
         # makes sure it doesn't colide with player
         new_rect.clamp_ip(pygame.Rect(0, 0, settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
         if player and not new_rect.colliderect(player.rect):
-            #makes the move
+            # makes the move
             self.rect = new_rect
 
-    def update(self):
-        #any logic for updating NPC's state could go here
-        pass
 
-#loads in npcs as a dictionary
+# loads in npcs as a dictionary
 def load_npcs():
     with open("data/npcs.json", "r") as f:
         data = json.load(f)

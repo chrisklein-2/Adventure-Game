@@ -61,22 +61,21 @@ class Player:
 
                     #checks if the npc is in any quest
                     for quest_id in quest_manager.quests:
-                        if quest_manager.is_quest_active(quest_id):
-                            if npc.name == quest_manager.get_current_npc(quest_id):
-                                
-                                #adds lines to inform player they have began/finished a quest
-                                if quest_manager.quests[quest_id]["current_step"]==0:
-                                    start = {"speaker":"game", "line": f"You've began the {quest_manager.quests[quest_id]["name"]} quest!"}
-                                    quest_manager.quests[quest_id]["steps"][0]["dialogue"].insert(0,start)
-                                    start = {"speaker":"game", "line": f"You've completed {quest_manager.quests[quest_id]["name"]}!"}
-                                    quest_manager.quests[quest_id]["steps"][-1]["dialogue"].append(start)
 
-                                #finds where the player is in quest then gets the dialogue associated with it
-                                current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
-                                dialogue_manager.start_dialogue(npc, current_step["dialogue"])
-                                dialogue_manager.advance(text_box, self)
-                                quest_manager.advance_quest(quest_id)
-                                return
+                        #checks if npc is next to talk to and that the quest is active
+                        if quest_manager.is_quest_active(quest_id) and npc.name == quest_manager.get_current_npc(quest_id):
+                            
+                            #adds lines to inform player they have began/finished a quest
+                            if quest_manager.quests[quest_id]["current_step"]==0:
+                                quest_manager.set_up_quest(quest_id)
+                        
+                            #finds where the player is in quest then gets the dialogue associated with it
+                            current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
+                            dialogue_manager.start_dialogue(npc, current_step["dialogue"])
+                            dialogue_manager.advance(text_box, self)
+                            quest_manager.advance_quest(quest_id)
+                            return
+                    
                     #if it isn't then it just says its dialogue
                     line = npc.check_next_line()
                     

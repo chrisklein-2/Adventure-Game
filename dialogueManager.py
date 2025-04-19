@@ -6,7 +6,7 @@ class DialogueManager:
         self.npc_name = ""
         self.npc = None
     
-    #begins the dialogue then keeps it active until its through
+    # begins the dialogue then keeps it active until its through
     def start_dialogue(self, npc, lines):
         self.dialogue_lines = lines
         self.current_line = 0
@@ -15,7 +15,7 @@ class DialogueManager:
         self.npc = npc
         npc.speed = 0
     
-    #keeps dialogue going waiting for the next line
+    # keeps dialogue going waiting for the next line
     def advance(self, text_box, player):
         if self.current_line < len(self.dialogue_lines):
             line = self.dialogue_lines[self.current_line]
@@ -32,7 +32,7 @@ class DialogueManager:
             player.can_move = True
             self.end(text_box)
     
-    #ends dialogue
+    # ends dialogue
     def end(self, text_box):
         text_box.hide()
         self.active = False

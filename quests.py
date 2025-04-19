@@ -1,4 +1,5 @@
 import json
+
 class QuestManager:
     def __init__(self, quest_data):
         self.quests = quest_data
@@ -26,6 +27,13 @@ class QuestManager:
             quest["current_step"] += 1
             if quest["current_step"] >= len(quest["steps"]):
                 quest["completed"] = True
+    
+    def set_up_quest(self, quest_id):
+        start = {"speaker":"game", "line": f"You've began the {self.quests[quest_id]["name"]} quest!"}
+        self.quests[quest_id]["steps"][0]["dialogue"].insert(0,start)
+        start = {"speaker":"game", "line": f"You've completed {self.quests[quest_id]["name"]}!"}
+        self.quests[quest_id]["steps"][-1]["dialogue"].append(start)
+
 
 
 

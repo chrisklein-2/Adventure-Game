@@ -14,17 +14,17 @@ class TextBox:
         self.text_color = settings.BLACK
         self.box_color = (240, 240, 240)
 
-    #shows the textbox when interaction starts
+    # shows the textbox when interaction starts
     def show(self, text):
         self.text = text
         self.visible = True
 
-    #hides the textbox
+    # hides the textbox
     def hide(self):
         self.visible = False
 
     def draw(self, screen):
-        #sets up textbox if it isnt hidden
+        # sets up textbox if it isnt hidden
         if self.visible:
             pygame.draw.rect(screen, self.box_color, self.box_rect)
             pygame.draw.rect(screen, settings.BLACK, self.box_rect, 2)  # border
@@ -34,7 +34,7 @@ class TextBox:
                 text_surface = self.font.render(line, True, self.text_color)
                 screen.blit(text_surface, (self.box_rect.x + self.padding, self.box_rect.y + self.padding + i * 24))
 
-    #adds the words to the textbox
+    # adds the words to the textbox
     def wrap_text(self, text, font, max_width):
         words = text.split(" ")
         lines = []

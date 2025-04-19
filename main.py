@@ -18,7 +18,7 @@ text_box.show("Use the arrow keys or WASD to move! Press E to interact!")
 font = pygame.font.Font(None, 36)  # font for text rendering
 pygame.display.set_caption("Adventure Game")
 
-# Set up clock
+# set up clock
 clock = pygame.time.Clock()
 
 def game_loop():
@@ -26,7 +26,7 @@ def game_loop():
 
     player = Player(400, 300, 5)
 
-    # Main game loop
+    # main game loop
     running = True
     
     npc_list = npcs.load_npcs()    
@@ -52,18 +52,18 @@ def game_loop():
                 else:
                     player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager)
 
-        #handle input
+        # handle input
         keys = pygame.key.get_pressed()
         player.update(keys, room_manager.current_room.npcs)
 
 
-        #update
+        # update
         room_manager.update(player, text_box)
         
         if keys[pygame.K_q]:
             text_box.hide()
         
-        #draw
+        # draw
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
         player.draw(screen)
@@ -71,7 +71,6 @@ def game_loop():
 
         pygame.display.flip()
 
-        
         clock.tick(settings.FPS)
 
 

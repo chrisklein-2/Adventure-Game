@@ -40,7 +40,7 @@ class Room:
             self.next_room = self.exits["south"]
             return "north"
         else:
-            self.next_room = None  # Stay in current room
+            self.next_room = None  # stay in current room
 
 
 
@@ -49,7 +49,7 @@ class RoomManager:
         self.rooms = rooms  # dictionary containing the rooms
         self.current_room = self.rooms[start_room] # current room
 
-    #switches to another room
+    # switches to another room
     def switch_room(self, new_room_name):
         if new_room_name in self.rooms:
             self.current_room = self.rooms[new_room_name]
@@ -57,7 +57,7 @@ class RoomManager:
         else:
             print(f"Room '{new_room_name}' not found.")
 
-    #determines if the player has entered another room
+    # determines if the player has entered another room
     def update(self, player, text_box):
         for npc in self.current_room.npcs:
             npc.wander(player)
@@ -67,27 +67,27 @@ class RoomManager:
             player.reset_position(direction)
             self.switch_room(self.current_room.next_room)
 
-    #draws the player
+    # draws the player
     def draw(self, screen):
         self.current_room.draw(screen)
 
 
-#loads in the rooms from the json
+# loads in the rooms from the json
 def load_rooms(npc_list):
     with open('data/rooms.json', 'r') as file:
         rooms_data = json.load(file)
 
-    #dictionary that holds all the room information
+    # dictionary that holds all the room information
     rooms = {}
     for room_name, room_info in rooms_data.items():
         background = pygame.image.load(room_info['background'])
         exits = room_info['exits']
 
-        #gets the npcs in the room
+        # gets the npcs in the room
         npc_names = room_info.get("npcs", [])
         npcs_in_room = [npc_list[name] for name in npc_names if name in npc_list]
         
-        #sets up the room
+        # sets up the room
         room = Room(
             room_info['name'], 
             room_info['description'], 
@@ -95,7 +95,7 @@ def load_rooms(npc_list):
             exits,
             npcs_in_room
         )
-        #adds the room
+        # adds the room
         rooms[room_name] = room
 
 
