@@ -55,7 +55,7 @@ class Player:
         pygame.draw.rect(screen, settings.BLUE, self.rect)
 
     #handles interactions with npcs
-    def handle_interaction(self, event, npcs, text_box, quest_manager, dialogue_manager):
+    def handle_interaction(self, event, npcs, text_box, quest_manager, dialogue_manager, hud):
 
         #buffer zone for interacting with npcs
         buffer = 50
@@ -75,11 +75,12 @@ class Player:
                             #adds lines to inform player they have began/finished a quest
                             if quest_manager.quests[quest_id]["current_step"]==0:
                                 quest_manager.set_up_quest(quest_id)
+                                hud.quest = quest_manager.quests[quest_id]["name"]
                         
                             #finds where the player is in quest then gets the dialogue associated with it
                             current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
                             dialogue_manager.start_dialogue(npc, current_step["dialogue"])
-                            dialogue_manager.advance(text_box, self)
+                            dialogue_manager.advance(text_box, self, hud)
                             quest_manager.advance_quest(quest_id)
                             return
                     

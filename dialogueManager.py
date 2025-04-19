@@ -16,7 +16,7 @@ class DialogueManager:
         npc.speed = 0
     
     # keeps dialogue going waiting for the next line
-    def advance(self, text_box, player):
+    def advance(self, text_box, player, hud):
         if self.current_line < len(self.dialogue_lines):
             line = self.dialogue_lines[self.current_line]
             speaker = "" 
@@ -28,6 +28,8 @@ class DialogueManager:
                 speaker = ""
             text_box.show(f"{speaker} {line['line']}")
             self.current_line += 1
+            if line["speaker"] == "end":
+                hud.quest = None
         else:
             player.can_move = True
             self.end(text_box)

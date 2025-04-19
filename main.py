@@ -23,9 +23,10 @@ hud = HUD()
 clock = pygame.time.Clock()
 
 def game_loop():
+    print("Add quest to hud")
     intro_message = True
 
-    player = Player(400, 300, 5)
+    player = Player(400, 300, settings.PLAYER_SPEED)
 
     # main game loop
     running = True
@@ -49,9 +50,9 @@ def game_loop():
                 if dialogue_manager.active:
                     player.can_move=False
                     if event.key == pygame.K_e:
-                        dialogue_manager.advance(text_box, player)
+                        dialogue_manager.advance(text_box, player, hud)
                 else:
-                    player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager)
+                    player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager, hud)
 
         # handle input
         keys = pygame.key.get_pressed()
