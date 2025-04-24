@@ -6,7 +6,7 @@ class HUD:
     def __init__(self):
         self.width = 300
         self.height = 100
-        self.font = pygame.font.Font(None, 24)
+        self.font = pygame.font.Font(None, 26)
         self.left = settings.SCREEN_WIDTH-self.width
 
         self.hud_rect = pygame.Rect(self.left, 0, self.width, self.height)
@@ -16,6 +16,7 @@ class HUD:
         self.hud_color = (240, 240, 240)
         self.room = settings.StarterRoom
         self.quest = None
+        self.questObj = None
 
     def draw(self, screen):
         self.hud_rect = pygame.Rect(self.left, 0, self.width, self.height)
@@ -24,12 +25,15 @@ class HUD:
         pygame.draw.rect(screen, settings.BLACK, self.hud_rect, 2)  # border
 
         # adds a text that displays the current room
-        text = "Current Room: " + self.room.title()
+        text = "Room: " + self.room.title()
         text_surface = self.font.render(text, True, self.text_color)
         screen.blit(text_surface, (self.hud_rect.x + self.padding, self.hud_rect.y + self.padding))
 
         if self.quest:
-            text = "Current Quest: " + self.quest.title()
+            text = "Quest: " + self.quest.title()
             text_surface = self.font.render(text, True, self.text_color)
             screen.blit(text_surface, (self.hud_rect.x + self.padding, self.hud_rect.y + self.padding + 25))
+            text = "Current objective: " + self.questObj
+            text_surface = self.font.render(text, True, self.text_color)
+            screen.blit(text_surface, (self.hud_rect.x + self.padding, self.hud_rect.y + self.padding + 50))
 

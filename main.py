@@ -23,9 +23,8 @@ hud = HUD()
 clock = pygame.time.Clock()
 
 def game_loop():
-    print("Add quest to hud")
     intro_message = True
-
+    print("Make quest objectives, fix hud box to fit desc")
     player = Player(400, 300, settings.PLAYER_SPEED)
 
     # main game loop

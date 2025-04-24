@@ -76,9 +76,15 @@ class Player:
                             if quest_manager.quests[quest_id]["current_step"]==0:
                                 quest_manager.set_up_quest(quest_id)
                                 hud.quest = quest_manager.quests[quest_id]["name"]
+                                hud.questObj = quest_manager.quests[quest_id]["steps"][0]["objective"]
                         
                             #finds where the player is in quest then gets the dialogue associated with it
-                            current_step = quest_manager.quests[quest_id]["steps"][quest_manager.quests[quest_id]["current_step"]]
+                            stepNum = quest_manager.quests[quest_id]["current_step"]
+                            current_step = quest_manager.quests[quest_id]["steps"][stepNum]
+
+                            if stepNum+1 < len(quest_manager.quests[quest_id]["steps"]):
+                                hud.questObj = quest_manager.quests[quest_id]["steps"][stepNum+1]["objective"]
+
                             dialogue_manager.start_dialogue(npc, current_step["dialogue"])
                             dialogue_manager.advance(text_box, self, hud)
                             quest_manager.advance_quest(quest_id)

@@ -4,6 +4,7 @@
         "steps":[
             {
                 "npc":"Useless Tom",
+                "objective":"Speak to Tom.",
                 "dialogue":[    
                     {"speaker": "npc", "line": "Mayor Bob wanted to talk to you."},
                     {"speaker": "player", "line": "Whats he like?"},
@@ -12,6 +13,7 @@
             },
             {
                 "npc":"Mayor Bob",
+                "objective":"Speak to Mayor Bob.",
                 "dialogue":[
                     {"speaker":"player", "line": "Tom said you wanted to talk to me."},
                     {"speaker":"npc","line":"Hello there, I wanted to welcome you to our little town."},
@@ -20,6 +22,7 @@
             },
             {
                 "npc":"Useless Tom",
+                "objective":"Return to Tom.",
                 "dialogue":[    
                     {"speaker": "npc", "line": "What did he want?"},
                     {"speaker": "player", "line": "He just wanted to welcome me to the town."},
@@ -31,6 +34,7 @@
             },
             {
                 "npc":"Bill the Bartender",
+                "objective":"Introduce yourself to Bill the Bartender.",
                 "dialogue":[
                     {"speaker": "player", "line": "Tom wanted me to introduce myself."},
                     {"speaker":"npc","line":"Tom is just a lazy man, but its nice to meet you."},
@@ -47,15 +51,17 @@
         "steps":[
             {
                 "npc":"Shopkeeper",
+                "objective":"Speak to the shopkeeper.",
                 "dialogue":[    
                     {"speaker": "npc", "line": "I need to give the mayor 5 gold, a watch and this flag."},
-                    { "speaker": "npc", "line": "Can you bring them for me?" },
+                    {"speaker": "npc", "line": "Can you bring them for me?" },
                     {"speaker": "player", "line": "I suppose I could do that."},
                     {"speaker": "npc", "line": "Thank you, you're a life saver!"}
                 ]
             },
             {
                 "npc":"Mayor Bob",
+                "objective":"Bring items to Mayor Bob.",
                 "dialogue":[
                     { "speaker": "player", "line": "Hello Mayor Bob." },
                     { "speaker": "player", "line": "The shopkeeper asked me to bring you these things" },
