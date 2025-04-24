@@ -30,6 +30,7 @@ class DialogueManager:
             self.current_line += 1
             if line["speaker"] == "end":
                 hud.quest = None
+                hud.update_height()
         else:
             player.can_move = True
             self.end(text_box)

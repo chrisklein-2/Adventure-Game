@@ -4,7 +4,7 @@ class QuestManager:
     def __init__(self, quest_data):
         self.quests = quest_data
 
-    #checks if quest is still ongoing
+    # checks if quest is still ongoing
     def is_quest_active(self, quest_id):
         quest = self.quests.get(quest_id)
         if quest and not quest["completed"]:
@@ -12,7 +12,7 @@ class QuestManager:
         else:
             return False
 
-    #returns the npc needed to talk to for the next quest step
+    # returns the npc needed to talk to for the next quest step
     def get_current_npc(self, quest_id):
         quest = self.quests.get(quest_id)
         if quest:
@@ -20,13 +20,16 @@ class QuestManager:
             return step["npc"]
         return None
 
-    #moves onto next step if you're talking to correct npc
-    def advance_quest(self, quest_id):
+    # moves onto next step if you're talking to correct npc
+    def advance_quest(self, quest_id, hud):
         quest = self.quests.get(quest_id)
         if quest:
             quest["current_step"] += 1
             if quest["current_step"] >= len(quest["steps"]):
                 quest["completed"] = True
+            else:
+                hud.questObj = quest["steps"][quest["current_step"]]["objective"]
+
     
     def set_up_quest(self, quest_id):
         start = {"speaker":"start", "line": f"You've began the {self.quests[quest_id]["name"]} quest!"}

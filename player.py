@@ -15,7 +15,7 @@ class Player:
         self.handle_movement(keys, hud, npcs)
 
 
-    #lets the player move around with arrow keys
+    # lets the player move around with arrow keys
     def handle_movement(self, keys, hud, npcs):
         if not self.can_move:
             return
@@ -50,47 +50,44 @@ class Player:
             else:
                 hud.left = 0
 
-    #draws the player
+    # draws the player
     def draw(self, screen):
         pygame.draw.rect(screen, settings.BLUE, self.rect)
 
-    #handles interactions with npcs
+    # handles interactions with npcs
     def handle_interaction(self, event, npcs, text_box, quest_manager, dialogue_manager, hud):
 
-        #buffer zone for interacting with npcs
+        # buffer zone for interacting with npcs
         buffer = 50
         buffer_rect = self.rect.inflate(buffer, buffer)
         
         if event.key == pygame.K_e:
-            #cycles through all the npcs in the room
+            # cycles through all the npcs in the room
             for npc in npcs:
                 if buffer_rect.colliderect(npc.rect):
 
-                    #checks if the npc is in any quest
+                    # checks if the npc is in any quest
                     for quest_id in quest_manager.quests:
 
-                        #checks if npc is next to talk to and that the quest is active
+                        # checks if npc is next to talk to and that the quest is active
                         if quest_manager.is_quest_active(quest_id) and npc.name == quest_manager.get_current_npc(quest_id):
                             
-                            #adds lines to inform player they have began/finished a quest
+                            # adds lines to inform player they have began/finished a quest
                             if quest_manager.quests[quest_id]["current_step"]==0:
                                 quest_manager.set_up_quest(quest_id)
                                 hud.quest = quest_manager.quests[quest_id]["name"]
                                 hud.questObj = quest_manager.quests[quest_id]["steps"][0]["objective"]
                         
-                            #finds where the player is in quest then gets the dialogue associated with it
+                            # finds where the player is in quest then gets the dialogue associated with it
                             stepNum = quest_manager.quests[quest_id]["current_step"]
                             current_step = quest_manager.quests[quest_id]["steps"][stepNum]
 
-                            if stepNum+1 < len(quest_manager.quests[quest_id]["steps"]):
-                                hud.questObj = quest_manager.quests[quest_id]["steps"][stepNum+1]["objective"]
-
                             dialogue_manager.start_dialogue(npc, current_step["dialogue"])
                             dialogue_manager.advance(text_box, self, hud)
-                            quest_manager.advance_quest(quest_id)
+                            quest_manager.advance_quest(quest_id, hud)
                             return
                     
-                    #if it isn't then it just says its dialogue
+                    # if it isn't then it just says its dialogue
                     line = npc.check_next_line()
                     
                     if line:
@@ -101,7 +98,7 @@ class Player:
                         npc.interact(text_box)
                     break
 
-    #moves player to appropriate position after changing rooms
+    # moves player to appropriate position after changing rooms
     def reset_position(self, direction=None):
         if direction == "south":
             self.y = settings.SCREEN_HEIGHT - 20
