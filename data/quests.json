@@ -45,7 +45,7 @@
         ],
         "current_step":0,
         "completed":false,
-        "reward":5
+        "reward": "Toms approval"
     },
     "deliver the list" : {
         "name": "Deliver the list",
@@ -75,6 +75,6 @@
         ],
         "current_step":0,
         "completed":false,
-        "reward":5
+        "reward": "shopkeepers approval"
     }
 }

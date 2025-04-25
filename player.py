@@ -87,6 +87,9 @@ class Player:
                             dialogue_manager.start_dialogue(npc, current_step["dialogue"])
                             dialogue_manager.advance(text_box, self, hud)
                             quest_manager.advance_quest(quest_id, hud)
+
+                            if quest["completed"]==True:
+                                self.inventory.append(quest["reward"])
                             return
                     
                     # if it isn't then it just says its dialogue
