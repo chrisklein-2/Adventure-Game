@@ -36,7 +36,8 @@ def game_loop():
     rooms = rm.load_rooms(npc_list)  
     room_manager = rm.RoomManager(rooms, settings.StarterRoom)
     pygame.display.set_caption("Town Square")
-
+    sea_shanty_2 = pygame.mixer.Sound("assets/sounds/sea_shanty_2.wav")
+    sea_shanty_2.set_volume(.08)
     quest_manager = quests.QuestManager(quests.load_quests())
     dialogue_manager = dialogueManager.DialogueManager()
 
@@ -61,6 +62,8 @@ def game_loop():
         keys = pygame.key.get_pressed()
         player.update(keys, hud, room_manager.current_room.npcs)
 
+        if not sea_shanty_2.get_num_channels():
+            sea_shanty_2.play()
 
         # update
         room_manager.update(player, text_box, hud)
