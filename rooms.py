@@ -3,20 +3,21 @@ import json
 import settings
 
 class Room:
-    def __init__(self, name, description, background, exits, npcs=None, objects=None):
-        self.name = name  # Name of the room (e.g., "Library")
-        self.description = description  # The text description of the room
-        self.background = background  # Background image or color (could be a string or pygame.Surface)
-        self.exits = exits  # A dictionary of possible exits {north: "Room Name", east: "Room Name", etc.}
-        self.npcs = npcs if npcs else []  # List of NPCs in the room (could be NPC objects)
-        self.objects = objects if objects else []  # List of objects that are interactable (could be items or other objects)
+    def __init__(self, name, description, background, music, exits, npcs=None, objects=None):
+        self.name = name  
+        self.description = description  
+        self.background = background  
+        self.music = music
+        self.exits = exits  
+        self.npcs = npcs if npcs else []  
+        self.objects = objects if objects else [] # not implemented yet
         self.next_room = None
 
     def draw(self, screen):
-        # Draw background image or color
+        # draw background image or color
         if isinstance(self.background, pygame.Surface):  # if background is an image
             screen.blit(self.background, (0, 0))
-        else:  # If background is a color
+        else:  # if background is a default color
             screen.fill(self.background)
         for npc in self.npcs:
             npc.draw(screen)
@@ -63,10 +64,21 @@ class RoomManager:
             npc.wander(player)
         direction = self.current_room.update(player, self)
         if self.current_room.next_room:
-            text_box.hide()
+            text_box.hide() #gets rid of the text box if still open
             hud.room = self.current_room.next_room # changes the name on the hud
             player.reset_position(direction)
+            old_music = self.current_room.music
+
+            #switches to the next room
             self.switch_room(self.current_room.next_room)
+
+            # sets music in room if it is different than previous track
+            if self.current_room.music != pygame.mixer.music.get_busy() and self.current_room.music != old_music:
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load(self.current_room.music)
+                pygame.mixer.music.set_volume(.08)
+                pygame.mixer.music.play(-1)  # loop indefinitely
+                
 
     # draws the room
     def draw(self, screen):
@@ -82,6 +94,7 @@ def load_rooms(npc_list):
     rooms = {}
     for room_name, room_info in rooms_data.items():
         background = pygame.image.load(room_info['background'])
+        music = room_info["music"]
         exits = room_info['exits']
 
         # gets the npcs in the room
@@ -93,6 +106,7 @@ def load_rooms(npc_list):
             room_info['name'], 
             room_info['description'], 
             background, 
+            music,
             exits,
             npcs_in_room
         )

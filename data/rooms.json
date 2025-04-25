@@ -3,6 +3,7 @@
         "name": "The Bar",
         "description": "Just an ordinary bar.",
         "background": "assets/images/bar.jpg",
+        "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
             "north": "forest",
             "east": "path",
@@ -14,6 +15,7 @@
         "name": "The Forest",
         "description": "A lovely lush forest",
         "background": "assets/images/forest.jpg",
+        "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
             "south": "bar"
         },
@@ -23,6 +25,7 @@
         "name": "Dirt Path",
         "description": "I wonder whats down this path!",
         "background": "assets/images/dirt.jpg",
+        "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
             "west": "bar"
         },
@@ -32,6 +35,7 @@
         "name": "Town Square",
         "description": "A lovely little town.",
         "background": "assets/images/dirt.jpg",
+        "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
             "north": "garden",
             "east": "bar",
@@ -44,6 +48,7 @@
         "name": "Town Shop",
         "description": "A small shop for the town.",
         "background": "assets/images/dirt.jpg",
+        "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
             "east": "town square"
         },
@@ -53,6 +58,7 @@
         "name": "Town Garden",
         "description": "A small garden for the town.",
         "background": "assets/images/forest.jpg",
+        "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
             "south": "town square"
         },
@@ -62,6 +68,7 @@
         "name": "Housing",
         "description": "A local place to house the townsfolk.",
         "background": "assets/images/dirt.jpg",
+        "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
             "north": "town square"
         },

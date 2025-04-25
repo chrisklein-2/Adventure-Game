@@ -24,7 +24,7 @@ clock = pygame.time.Clock()
 
 def game_loop():
     intro_message = True
-    print("Start an inventory system")
+    print("Maybe expand inventory or work on npcs")
     player = Player(400, 300, settings.PLAYER_SPEED)
     pygame.mixer.pre_init(22050, -16, 1, 512)
     pygame.init()
@@ -38,6 +38,7 @@ def game_loop():
     pygame.display.set_caption("Town Square")
     sea_shanty_2 = pygame.mixer.Sound("assets/sounds/sea_shanty_2.wav")
     sea_shanty_2.set_volume(.08)
+    sea_shanty_2.play()
     quest_manager = quests.QuestManager(quests.load_quests())
     dialogue_manager = dialogueManager.DialogueManager()
 
@@ -61,9 +62,6 @@ def game_loop():
         # handle input
         keys = pygame.key.get_pressed()
         player.update(keys, hud, room_manager.current_room.npcs)
-
-        if not sea_shanty_2.get_num_channels():
-            sea_shanty_2.play()
 
         # update
         room_manager.update(player, text_box, hud)
