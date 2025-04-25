@@ -45,10 +45,10 @@ class Player:
 
         # collison detection for the hud
         if new_rect.colliderect(hud.hud_rect):
-            if hud.left == 0:
-                hud.left = settings.SCREEN_WIDTH-hud.width
+            if hud.hud_rect.left == 0:
+                hud.hud_rect.left = settings.SCREEN_WIDTH-hud.width
             else:
-                hud.left = 0
+                hud.hud_rect.left = 0
 
     # draws the player
     def draw(self, screen):
