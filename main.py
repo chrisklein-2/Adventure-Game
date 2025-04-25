@@ -27,36 +27,49 @@ def game_loop():
     print("Maybe expand inventory or work on npcs")
     player = Player(400, 300, settings.PLAYER_SPEED)
     pygame.mixer.pre_init(22050, -16, 1, 512)
-    pygame.init()
 
     # main game loop
     running = True
     
+    # initializes json data
     npc_list = npcs.load_npcs()    
     rooms = rm.load_rooms(npc_list)  
-    room_manager = rm.RoomManager(rooms, settings.StarterRoom)
+
+    # sets up initial song and room title
     pygame.display.set_caption("Town Square")
     sea_shanty_2 = pygame.mixer.Sound("assets/sounds/sea_shanty_2.wav")
     sea_shanty_2.set_volume(.08)
     sea_shanty_2.play()
+
+    # initializes managers
+    room_manager = rm.RoomManager(rooms, settings.StarterRoom)
     quest_manager = quests.QuestManager(quests.load_quests())
     dialogue_manager = dialogueManager.DialogueManager()
 
     while running:
         for event in pygame.event.get():
+            # quits the game
             if event.type == pygame.QUIT:
                 running = False
+            
+            # when a key is pressed
             if event.type == pygame.KEYDOWN:
+                
+                # intro message to display instructions
                 if intro_message:
                     text_box.hide()
                     intro_message = False
+                
+                # if quest dialogue is currently running
                 if dialogue_manager.active:
                     player.can_move=False
                     if event.key == pygame.K_e:
                         dialogue_manager.advance(text_box, player, hud)
                 else:
+                    # E key closes text box
                     if text_box.visible and event.key == pygame.K_e:
                         text_box.hide()
+                    # any other interaction
                     player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager, hud)
 
         # handle input
@@ -75,7 +88,6 @@ def game_loop():
         player.draw(screen)
         text_box.draw(screen)
         hud.draw(screen)
-
         pygame.display.flip()
 
         clock.tick(settings.FPS)
