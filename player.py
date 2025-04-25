@@ -7,18 +7,26 @@ class Player:
         self.x = x
         self.y = y
         self.speed = speed
-        self.rect = pygame.Rect(x, y, 32, 50)  # rectangle for collision detection
+        self.rect = pygame.Rect(x, y, settings.player_width, settings.player_height)  # rectangle for collision detection
         self.color = settings.BLUE # the players color
-        self.attack_width = 15
-        self.attack_box = pygame.Rect(x-self.attack_width, y, self.attack_width, 50)
+        self.attack_width = 14
+        self.attack_height = 10
+        self.attack_box = pygame.Rect(x-self.attack_width, y, self.attack_width, settings.player_height)
         self.can_move = True
         self.inventory = []
         self.walk_sound = pygame.mixer.Sound("assets/sounds/walking.wav")
         self.direction = "right" # which way are they facing
-        
+
     def update(self, keys, hud, npcs=None):
         self.handle_movement(keys, hud, npcs)
 
+    def flip_attack_box(self, direction):
+        if direction == "left" or direction == "right":
+            self.attack_box.height = settings.player_height
+            self.attack_box.width = self.attack_width
+        else:
+            self.attack_box.height = self.attack_width
+            self.attack_box.width = settings.player_height
 
     # lets the player move around with arrow keys
     def handle_movement(self, keys, hud, npcs):
@@ -37,9 +45,11 @@ class Player:
         if keys[pygame.K_UP] or keys[pygame.K_w]:
             if self.y > 0:
                 dy -= self.speed
+                self.direction = "up"
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             if self.y < settings.SCREEN_HEIGHT - self.rect.height:
                 dy += self.speed
+                self.direction = "down"
         
         new_rect = self.rect.move(dx, dy)
         # collision detection for npcs
@@ -50,11 +60,16 @@ class Player:
             self.rect.x = self.x
             self.rect.y = self.y
 
+            self.flip_attack_box(self.direction)
             # moves attack box with player
             if self.direction == "left":
                 self.attack_box.topleft = (self.rect.x - self.attack_width, self.rect.y)
             elif self.direction == "right":
                 self.attack_box.topleft = (self.rect.x + self.rect.width, self.rect.y)
+            elif self.direction == "up":
+                self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.top - self.attack_height)
+            elif self.direction == "down":
+                self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.bottom)               
             if self.x != prev_x or self.y != prev_y:
                 if not self.walk_sound.get_num_channels():
                     self.walk_sound.play()
@@ -122,12 +137,12 @@ class Player:
     # moves player to appropriate position after changing rooms
     def reset_position(self, direction=None):
         if direction == "south":
-            self.y = settings.SCREEN_HEIGHT - 20
+            self.y = settings.SCREEN_HEIGHT - settings.player_height
         elif direction == "north":
             self.y = 0
         elif direction == "east":
             self.x = 0
         elif direction == "west":
-            self.x = settings.SCREEN_WIDTH - 20
+            self.x = settings.SCREEN_WIDTH - settings.player_width
         else:
             self.rect.x, self.rect.y = settings.SCREEN_WIDTH // 2, settings.SCREEN_HEIGHT // 2

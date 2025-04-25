@@ -25,7 +25,7 @@ clock = pygame.time.Clock()
 
 def game_loop():
     intro_message = True
-    print("Maybe expand inventory or work on npcs")
+    print("Cant go left or up")
     player = Player(400, 300, settings.PLAYER_SPEED)
     pygame.mixer.pre_init(22050, -16, 1, 512)
 
