@@ -49,6 +49,7 @@ class RoomManager:
     def __init__(self, rooms, start_room):
         self.rooms = rooms  # dictionary containing the rooms
         self.current_room = self.rooms[start_room] # current room
+        self.current_music = None
 
     # switches to another room
     def switch_room(self, new_room_name):
@@ -58,11 +59,27 @@ class RoomManager:
         else:
             print(f"Room '{new_room_name}' not found.")
 
+    def set_music(self, music_track):
+
+        if self.current_music != music_track:
+
+            if pygame.mixer.music.get_busy():
+                pygame.mixer.music.stop()
+            if self.current_room.music:  # make sure a path is provided
+                pygame.mixer.music.load(self.current_room.music)
+                pygame.mixer.music.set_volume(.08)
+                pygame.mixer.music.play(-1)
+            self.current_music = music_track
+
     # determines if the player has entered another room
     def update(self, player, text_box, hud):
         for npc in self.current_room.npcs:
             npc.wander(player)
         direction = self.current_room.update(player, self)
+
+        if not pygame.mixer.music.get_busy():
+            self.set_music(self.current_room.music)
+
         if self.current_room.next_room:
             text_box.hide() #gets rid of the text box if still open
             hud.room = self.current_room.next_room # changes the name on the hud
@@ -72,12 +89,9 @@ class RoomManager:
             #switches to the next room
             self.switch_room(self.current_room.next_room)
 
-            # sets music in room if it is different than previous track
-            if self.current_room.music != pygame.mixer.music.get_busy() and self.current_room.music != old_music:
-                pygame.mixer.music.stop()
-                pygame.mixer.music.load(self.current_room.music)
-                pygame.mixer.music.set_volume(.08)
-                pygame.mixer.music.play(-1)  # loop indefinitely
+            self.set_music(self.current_room.music)
+            
+                        
                 
 
     # draws the room

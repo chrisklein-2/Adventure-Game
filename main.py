@@ -8,6 +8,7 @@ from textbox import TextBox
 import quests
 import dialogueManager
 from hud import HUD
+
 # Initialize Pygame
 pygame.init()
 
@@ -35,11 +36,9 @@ def game_loop():
     npc_list = npcs.load_npcs()    
     rooms = rm.load_rooms(npc_list)  
 
-    # sets up initial song and room title
+    # sets up initial room title
     pygame.display.set_caption("Town Square")
-    sea_shanty_2 = pygame.mixer.Sound("assets/sounds/sea_shanty_2.wav")
-    sea_shanty_2.set_volume(.08)
-    sea_shanty_2.play()
+ 
 
     # initializes managers
     room_manager = rm.RoomManager(rooms, settings.StarterRoom)
@@ -66,7 +65,7 @@ def game_loop():
                     if event.key == pygame.K_e:
                         dialogue_manager.advance(text_box, player, hud)
                 else:
-                    # E key closes text box
+                    # pressing e closes text box
                     if text_box.visible and event.key == pygame.K_e:
                         text_box.hide()
                     # any other interaction

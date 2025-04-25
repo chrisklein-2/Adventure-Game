@@ -15,8 +15,9 @@
         "name": "The Forest",
         "description": "A lovely lush forest",
         "background": "assets/images/forest.jpg",
-        "music": "assets/sounds/sea_shanty_2.wav",
+        "music": "assets/sounds/forest_music.wav",
         "exits": {
+            "west": "garden",
             "south": "bar"
         },
         "npcs": []
@@ -58,8 +59,9 @@
         "name": "Town Garden",
         "description": "A small garden for the town.",
         "background": "assets/images/forest.jpg",
-        "music": "assets/sounds/sea_shanty_2.wav",
+        "music": "assets/sounds/forest_music.wav",
         "exits": {
+            "east": "forest",
             "south": "town square"
         },
         "npcs": []
