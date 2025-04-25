@@ -7,12 +7,15 @@ class Player:
         self.x = x
         self.y = y
         self.speed = speed
-        self.rect = pygame.Rect(x, y, 20, 20)  # rectangle for collision detection
-        self.color = (0, 0, 255)  # the players color
+        self.rect = pygame.Rect(x, y, 32, 50)  # rectangle for collision detection
+        self.color = settings.BLUE # the players color
+        self.attack_width = 15
+        self.attack_box = pygame.Rect(x-self.attack_width, y, self.attack_width, 50)
         self.can_move = True
         self.inventory = []
         self.walk_sound = pygame.mixer.Sound("assets/sounds/walking.wav")
-
+        self.direction = "right" # which way are they facing
+        
     def update(self, keys, hud, npcs=None):
         self.handle_movement(keys, hud, npcs)
 
@@ -22,13 +25,15 @@ class Player:
         if not self.can_move:
             return
         prev_x, prev_y = self.x, self.y
-        dx, dy = 0, 0
+        dx, dy = 0, 0 # the difference in the movements
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             if self.x > 0:
                 dx -= self.speed
+                self.direction = "left"
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             if self.x < settings.SCREEN_WIDTH - self.rect.width:
                 dx += self.speed
+                self.direction = "right"
         if keys[pygame.K_UP] or keys[pygame.K_w]:
             if self.y > 0:
                 dy -= self.speed
@@ -44,6 +49,12 @@ class Player:
             self.y += dy
             self.rect.x = self.x
             self.rect.y = self.y
+
+            # moves attack box with player
+            if self.direction == "left":
+                self.attack_box.topleft = (self.rect.x - self.attack_width, self.rect.y)
+            elif self.direction == "right":
+                self.attack_box.topleft = (self.rect.x + self.rect.width, self.rect.y)
             if self.x != prev_x or self.y != prev_y:
                 if not self.walk_sound.get_num_channels():
                     self.walk_sound.play()
@@ -57,7 +68,8 @@ class Player:
 
     # draws the player
     def draw(self, screen):
-        pygame.draw.rect(screen, settings.BLUE, self.rect)
+        pygame.draw.rect(screen, self.color, self.rect)
+        pygame.draw.rect(screen, settings.BLACK, self.attack_box)
 
     # handles interactions with npcs
     def handle_interaction(self, event, npcs, text_box, quest_manager, dialogue_manager, hud):
