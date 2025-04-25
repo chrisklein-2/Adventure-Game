@@ -26,6 +26,8 @@ def game_loop():
     intro_message = True
     print("Start an inventory system")
     player = Player(400, 300, settings.PLAYER_SPEED)
+    pygame.mixer.pre_init(22050, -16, 1, 512)
+    pygame.init()
 
     # main game loop
     running = True

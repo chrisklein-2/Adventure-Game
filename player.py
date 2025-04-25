@@ -11,6 +11,7 @@ class Player:
         self.color = (0, 0, 255)  # the players color
         self.can_move = True
         self.inventory = []
+        self.walk_sound = pygame.mixer.Sound("assets/sounds/walking.wav")
 
     def update(self, keys, hud, npcs=None):
         self.handle_movement(keys, hud, npcs)
@@ -20,7 +21,7 @@ class Player:
     def handle_movement(self, keys, hud, npcs):
         if not self.can_move:
             return
-
+        prev_x, prev_y = self.x, self.y
         dx, dy = 0, 0
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             if self.x > 0:
@@ -43,6 +44,9 @@ class Player:
             self.y += dy
             self.rect.x = self.x
             self.rect.y = self.y
+            if self.x != prev_x or self.y != prev_y:
+                if not self.walk_sound.get_num_channels():
+                    self.walk_sound.play()
 
         # collison detection for the hud
         if new_rect.colliderect(hud.hud_rect):
