@@ -27,10 +27,10 @@ class QuestManager:
             quest["current_step"] += 1
             if quest["current_step"] >= len(quest["steps"]):
                 quest["completed"] = True
-            else:
+            if quest["current_step"] < len(quest["steps"]):
                 hud.questObj = quest["steps"][quest["current_step"]]["objective"]
 
-    
+    # adds beginning and end line
     def set_up_quest(self, quest_id):
         start = {"speaker":"start", "line": f"You've began the {self.quests[quest_id]["name"]} quest!"}
         self.quests[quest_id]["steps"][0]["dialogue"].insert(0,start)

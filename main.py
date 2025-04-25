@@ -51,6 +51,8 @@ def game_loop():
                     if event.key == pygame.K_e:
                         dialogue_manager.advance(text_box, player, hud)
                 else:
+                    if text_box.visible and event.key == pygame.K_e:
+                        text_box.hide()
                     player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager, hud)
 
         # handle input

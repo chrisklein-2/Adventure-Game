@@ -28,6 +28,8 @@ class DialogueManager:
                 speaker = ""
             text_box.show(f"{speaker} {line['line']}")
             self.current_line += 1
+
+            #adjusts hud for end of dialogue
             if line["speaker"] == "end":
                 hud.quest = None
                 hud.update_height()
