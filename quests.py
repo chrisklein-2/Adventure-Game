@@ -37,8 +37,8 @@ class QuestManager:
         start = {"speaker":"end", "line": f"You've completed {self.quests[quest_id]["name"]}!"}
         self.quests[quest_id]["steps"][-1]["dialogue"].append(start)
 
-
-
+    def get_current_quest(self, quest_id):
+        return self.quests[quest_id]
 
 def load_quests():
     with open('data/quests.json', 'r') as file:

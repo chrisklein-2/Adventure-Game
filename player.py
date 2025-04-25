@@ -10,6 +10,7 @@ class Player:
         self.rect = pygame.Rect(x, y, 20, 20)  # rectangle for collision detection
         self.color = (0, 0, 255)  # the players color
         self.can_move = True
+        self.inventory = []
 
     def update(self, keys, hud, npcs=None):
         self.handle_movement(keys, hud, npcs)
@@ -71,16 +72,17 @@ class Player:
 
                         # checks if npc is next to talk to and that the quest is active
                         if quest_manager.is_quest_active(quest_id) and npc.name == quest_manager.get_current_npc(quest_id):
-                            
-                            # adds lines to inform player they have began/finished a quest
-                            if quest_manager.quests[quest_id]["current_step"]==0:
+                            quest = quest_manager.get_current_quest(quest_id)
+
+                            # initializes quest and hud
+                            if quest["current_step"]==0:
                                 quest_manager.set_up_quest(quest_id)
-                                hud.quest = quest_manager.quests[quest_id]["name"]
-                                hud.questObj = quest_manager.quests[quest_id]["steps"][0]["objective"]
+                                hud.quest = quest["name"]
+                                hud.questObj = quest["steps"][0]["objective"]
                         
                             # finds where the player is in quest then gets the dialogue associated with it
-                            stepNum = quest_manager.quests[quest_id]["current_step"]
-                            current_step = quest_manager.quests[quest_id]["steps"][stepNum]
+                            stepNum = quest["current_step"]
+                            current_step = quest["steps"][stepNum]
 
                             dialogue_manager.start_dialogue(npc, current_step["dialogue"])
                             dialogue_manager.advance(text_box, self, hud)

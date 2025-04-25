@@ -68,7 +68,7 @@ class RoomManager:
             player.reset_position(direction)
             self.switch_room(self.current_room.next_room)
 
-    # draws the player
+    # draws the room
     def draw(self, screen):
         self.current_room.draw(screen)
 

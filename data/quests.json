@@ -44,7 +44,8 @@
 
         ],
         "current_step":0,
-        "completed":false
+        "completed":false,
+        "reward":5
     },
     "deliver the list" : {
         "name": "Deliver the list",
@@ -73,6 +74,7 @@
             }
         ],
         "current_step":0,
-        "completed":false
+        "completed":false,
+        "reward":5
     }
 }

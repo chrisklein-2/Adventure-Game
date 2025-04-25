@@ -24,7 +24,7 @@ clock = pygame.time.Clock()
 
 def game_loop():
     intro_message = True
-    print("Make quest objectives, fix hud box to fit desc")
+    print("Start an inventory system")
     player = Player(400, 300, settings.PLAYER_SPEED)
 
     # main game loop
