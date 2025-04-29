@@ -1,6 +1,6 @@
 import pygame
 import settings
-
+from gameObject import GameObject
 
 def set_music(music_track):
 
@@ -16,7 +16,7 @@ def switch_room(new_room_name, room_manager):
     pygame.display.set_caption(room_manager.current_room.name)
 
 
-def force_switch_room(room_name, text_box, hud, room_manager):
+def force_switch_room(room_name, text_box, hud, room_manager, screen):
     text_box.hide() #gets rid of the text box if still open
     hud.room = room_name
     

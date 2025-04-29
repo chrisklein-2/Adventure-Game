@@ -21,6 +21,8 @@ class Room:
             screen.fill(self.background)
         for npc in self.npcs:
             npc.draw(screen)
+        for obj in self.objects:
+            obj.draw(screen)
 
 
     def update(self, player, room_manager):
@@ -98,7 +100,7 @@ class RoomManager:
 
 
 # loads in the rooms from the json
-def load_rooms(npc_list):
+def load_rooms(npc_list, obj_list):
     with open('data/rooms.json', 'r') as file:
         rooms_data = json.load(file)
 
@@ -111,8 +113,9 @@ def load_rooms(npc_list):
 
         # gets the npcs in the room
         npc_names = room_info.get("npcs", [])
+        obj_names = room_info.get("objects", [])
         npcs_in_room = [npc_list[name] for name in npc_names if name in npc_list]
-        
+        objs_in_room = [obj_list[name] for name in obj_names if name in obj_list]
         # sets up the room
         room = Room(
             room_info['name'], 
@@ -120,7 +123,8 @@ def load_rooms(npc_list):
             background, 
             music,
             exits,
-            npcs_in_room
+            npcs_in_room,
+            objs_in_room
         )
         # adds the room
         rooms[room_name] = room

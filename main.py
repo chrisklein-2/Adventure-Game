@@ -8,7 +8,8 @@ from textbox import TextBox
 import quests
 import dialogueManager
 from hud import HUD
-import utils.roomSwitch as roomSwitch
+from utils.roomSwitch import force_switch_room
+from gameObject import GameObject, load_objects
 
 # Initialize Pygame
 pygame.init()
@@ -34,8 +35,9 @@ def game_loop():
     running = True
     
     # initializes json data
-    npc_list = npcs.load_npcs()    
-    rooms = rm.load_rooms(npc_list)  
+    npc_list = npcs.load_npcs()
+    obj_list = load_objects()
+    rooms = rm.load_rooms(npc_list, obj_list)  
 
     # sets up initial room title
     pygame.display.set_caption("Town Square")
@@ -57,7 +59,8 @@ def game_loop():
 
                 #shhhhhh....                
                 if event.key == pygame.K_u:
-                    roomSwitch.force_switch_room("Testing", text_box, hud, room_manager)
+                    force_switch_room("Testing", text_box, hud, room_manager, screen)
+                    
 
                 # intro message to display instructions
                 if intro_message:
@@ -87,11 +90,14 @@ def game_loop():
             text_box.hide()
         
         # draw
+
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
+
         player.draw(screen)
         text_box.draw(screen)
         hud.draw(screen)
+        
         pygame.display.flip()
 
         clock.tick(settings.FPS)

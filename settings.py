@@ -21,4 +21,4 @@ SOUND_DIR = "assets/sounds"
 FONT_DIR = "assets/fonts"
 
 
-StarterRoom = "town square"
+StarterRoom = "Testing"

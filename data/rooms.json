@@ -108,6 +108,7 @@
             "west": null,
             "south": null
         },
-        "npcs": []
+        "npcs": [],
+        "objects": ["table"]
     }
 }
