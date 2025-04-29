@@ -81,7 +81,7 @@ def game_loop():
 
         # handle input
         keys = pygame.key.get_pressed()
-        player.update(keys, hud, room_manager.current_room.npcs)
+        player.update(keys, hud, room_manager.current_room.npcs, room_manager.current_room.objects)
 
         # update
         room_manager.update(player, text_box, hud)

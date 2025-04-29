@@ -17,8 +17,8 @@ class Player:
         self.walk_sound = pygame.mixer.Sound("assets/sounds/walking.wav")
         self.direction = "right" # which way are they facing
 
-    def update(self, keys, hud, npcs=None):
-        self.handle_movement(keys, hud, npcs)
+    def update(self, keys, hud, npcs=None, objects = None):
+        self.handle_movement(keys, hud, npcs, objects)
 
     def flip_attack_box(self, direction):
         if direction == "left" or direction == "right":
@@ -29,7 +29,7 @@ class Player:
             self.attack_box.width = settings.player_height
 
     # lets the player move around with arrow keys
-    def handle_movement(self, keys, hud, npcs):
+    def handle_movement(self, keys, hud, npcs, objects):
         if not self.can_move:
             return
         prev_x, prev_y = self.x, self.y
@@ -53,7 +53,7 @@ class Player:
         
         new_rect = self.rect.move(dx, dy)
         # collision detection for npcs
-        if not any(new_rect.colliderect(npc.rect) for npc in npcs):
+        if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not any(new_rect.colliderect(obj.obj_rect) for obj in objects):
             # update player's position after moving
             self.x += dx
             self.y += dy
