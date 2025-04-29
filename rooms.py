@@ -92,8 +92,6 @@ class RoomManager:
             self.set_music(self.current_room.music)
             
                         
-                
-
     # draws the room
     def draw(self, screen):
         self.current_room.draw(screen)

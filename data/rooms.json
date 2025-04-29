@@ -97,7 +97,7 @@
         },
         "npcs": []
     },
-    "Secret Tunnel": {
+    "Testing": {
         "name": "Secret Tunnel",
         "description": "Through the mountain",
         "background": "assets/images/secretTunnel.jpg",

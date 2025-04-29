@@ -8,6 +8,7 @@ from textbox import TextBox
 import quests
 import dialogueManager
 from hud import HUD
+import utils.roomSwitch as roomSwitch
 
 # Initialize Pygame
 pygame.init()
@@ -25,7 +26,7 @@ clock = pygame.time.Clock()
 
 def game_loop():
     intro_message = True
-    print("Cant go left or up")
+    #print("")
     player = Player(400, 300, settings.PLAYER_SPEED)
     pygame.mixer.pre_init(22050, -16, 1, 512)
 
@@ -53,7 +54,11 @@ def game_loop():
             
             # when a key is pressed
             if event.type == pygame.KEYDOWN:
-                
+
+                #shhhhhh....                
+                if event.key == pygame.K_u:
+                    roomSwitch.force_switch_room("Testing", text_box, hud, room_manager)
+
                 # intro message to display instructions
                 if intro_message:
                     text_box.hide()
