@@ -7,9 +7,12 @@
         "exits": {
             "north": "forest",
             "east": "path",
-            "west": "town square"
+            "west": "town square",
+            "south": null
         },
-        "npcs": ["Bill the Bartender"]
+        "npcs": [
+            "Bill the Bartender"
+        ]
     },
     "forest": {
         "name": "The Forest",
@@ -17,6 +20,8 @@
         "background": "assets/images/forest.jpg",
         "music": "assets/sounds/forest_music.wav",
         "exits": {
+            "north": null,
+            "east": null,
             "west": "garden",
             "south": "bar"
         },
@@ -28,7 +33,10 @@
         "background": "assets/images/dirt.jpg",
         "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
-            "west": "bar"
+            "north": null,
+            "east": null,
+            "west": "bar",
+            "south": null
         },
         "npcs": []
     },
@@ -43,7 +51,10 @@
             "west": "shop",
             "south": "housing"
         },
-        "npcs": ["Mayor Bob", "Useless Tom"]
+        "npcs": [
+            "Mayor Bob",
+            "Useless Tom"
+        ]
     },
     "shop": {
         "name": "Town Shop",
@@ -51,9 +62,14 @@
         "background": "assets/images/dirt.jpg",
         "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
-            "east": "town square"
+            "north": null,
+            "east": "town square",
+            "west": null,
+            "south": null
         },
-        "npcs": ["Shopkeeper"]
+        "npcs": [
+            "Shopkeeper"
+        ]
     },
     "garden": {
         "name": "Town Garden",
@@ -61,7 +77,9 @@
         "background": "assets/images/forest.jpg",
         "music": "assets/sounds/forest_music.wav",
         "exits": {
+            "north": null,
             "east": "forest",
+            "west": null,
             "south": "town square"
         },
         "npcs": []
@@ -72,7 +90,23 @@
         "background": "assets/images/dirt.jpg",
         "music": "assets/sounds/sea_shanty_2.wav",
         "exits": {
-            "north": "town square"
+            "north": "town square",
+            "east": null,
+            "west": null,
+            "south": null
+        },
+        "npcs": []
+    },
+    "Secret Tunnel": {
+        "name": "Secret Tunnel",
+        "description": "Through the mountain",
+        "background": "assets/images/secretTunnel.jpg",
+        "music": "assets/sounds/secretTunnel.wav",
+        "exits": {
+            "north": null,
+            "east": null,
+            "west": null,
+            "south": null
         },
         "npcs": []
     }

@@ -1,30 +1,50 @@
 {
     "Mayor Bob": {
-      "name": "Mayor Bob",
-      "x": 300,
-      "y": 250,
-      "image": "assets/images/face.png",
-      "dialogue": ["Welcome to our fine town!", "I suppose you're new around here!"]
+        "name": "Mayor Bob",
+        "x": 300,
+        "y": 250,
+        "image": "assets/images/face.png",
+        "dialogue": [
+            "Welcome to our fine town!",
+            "I suppose you're new around here!"
+        ]
     },
     "Shopkeeper": {
-      "name": "Shopkeeper",
-      "x": 500,
-      "y": 300,
-      "image": "assets/images/alpha/letterS.png",
-      "dialogue": ["Take a look at my wares!"]
+        "name": "Shopkeeper",
+        "x": 500,
+        "y": 300,
+        "image": "assets/images/alpha/letterS.png",
+        "dialogue": [
+            "Take a look at my wares!"
+        ]
     },
-    "Bill the Bartender":{
-      "name": "Bill the Bartender",
-      "x": 300,
-      "y": 200,
-      "image": "assets/images/alpha/letterB.png",
-      "dialogue": ["What can I get ya?"]
+    "Bill the Bartender": {
+        "name": "Bill the Bartender",
+        "x": 300,
+        "y": 200,
+        "image": "assets/images/alpha/letterB.png",
+        "dialogue": [
+            "What can I get ya?"
+        ]
     },
-    "Useless Tom":{
-      "name": "Useless Tom",
-      "x": 100,
-      "y": 290,
-      "image": "assets/images/alpha/letterT.png",
-      "dialogue": ["Whats the point of this place?", "I'll never get a job."]
+    "Useless Tom": {
+        "name": "Useless Tom",
+        "x": 100,
+        "y": 290,
+        "image": "assets/images/alpha/letterT.png",
+        "dialogue": [
+            "Whats the point of this place?",
+            "I'll never get a job."
+        ]
+    },
+    "Bob Sacamano": {
+        "name": "Bob Sacamano",
+        "x": 200,
+        "y": 490,
+        "image": "assets/images/alpha/letterT.png",
+        "dialogue": [
+            "Have you seen Kramer?",
+            "I've got a great plan to get rich!"
+        ]
     }
-  }
+}
