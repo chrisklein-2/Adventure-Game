@@ -4,6 +4,7 @@ FPS = 60
 
 player_height = 50
 player_width = 32
+player_x, player_y = SCREEN_WIDTH//2, SCREEN_HEIGHT//2
 
 # Player settings
 PLAYER_SPEED = 5

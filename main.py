@@ -27,8 +27,7 @@ clock = pygame.time.Clock()
 
 def game_loop():
     intro_message = True
-    #print("")
-    player = Player(400, 300, settings.PLAYER_SPEED)
+    player = Player(settings.player_x, settings.player_y, settings.PLAYER_SPEED)
     pygame.mixer.pre_init(22050, -16, 1, 512)
 
     # main game loop
@@ -38,8 +37,6 @@ def game_loop():
     npc_list = npcs.load_npcs()
     obj_list = load_objects()
     rooms = rm.load_rooms(npc_list, obj_list)  
-
-    # sets up initial room title
  
 
     # initializes managers
@@ -89,7 +86,6 @@ def game_loop():
             text_box.hide()
         
         # draw
-
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
 
