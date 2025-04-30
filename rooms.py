@@ -57,7 +57,7 @@ class RoomManager:
     def switch_room(self, new_room_name):
         if new_room_name in self.rooms:
             self.current_room = self.rooms[new_room_name]
-            pygame.display.set_caption(self.current_room.name)
+            pygame.display.set_caption(self.current_room.description)
         else:
             print(f"Room '{new_room_name}' not found.")
 

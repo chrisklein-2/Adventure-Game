@@ -20,7 +20,7 @@ class GameObject:
         self.draw(screen)
 
 
-# loads in npcs as a dictionary
+# loads in objects as a dictionary
 def load_objects():
     with open("data/objects.json", "r") as f:
         data = json.load(f)
