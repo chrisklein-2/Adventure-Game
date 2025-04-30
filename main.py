@@ -9,7 +9,7 @@ import quests
 import dialogueManager
 from hud import HUD
 from utils.roomSwitch import force_switch_room
-from gameObject import GameObject, load_objects
+from gameObject import load_objects
 
 # Initialize Pygame
 pygame.init()

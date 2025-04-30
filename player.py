@@ -52,8 +52,12 @@ class Player:
                 self.direction = "down"
         
         new_rect = self.rect.move(dx, dy)
+        obj_blocks = False
+        for obj in objects:
+            if new_rect.colliderect(obj.obj_rect) and obj.solid:
+                obj_blocks = True
         # collision detection for npcs
-        if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not any(new_rect.colliderect(obj.obj_rect) for obj in objects):
+        if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not obj_blocks:
             # update player's position after moving
             self.x += dx
             self.y += dy

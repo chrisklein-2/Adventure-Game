@@ -4,11 +4,12 @@ import json
 
 class GameObject:
 
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height, solid):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.solid = solid
         self.color = settings.WHITE
         self.obj_rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
@@ -31,7 +32,8 @@ def load_objects():
             x = obj_data["x"],
             y = obj_data["y"],
             width = obj_data["width"],
-            height = obj_data["height"]
+            height = obj_data["height"],
+            solid = obj_data["solid"]
         )
         obj_dict[obj_name] = obj
     return obj_dict
