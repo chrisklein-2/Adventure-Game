@@ -4,7 +4,8 @@ import json
 
 class GameObject:
 
-    def __init__(self, x, y, width, height, solid):
+    def __init__(self, name, x, y, width, height, solid):
+        self.name = name
         self.x = x
         self.y = y
         self.width = width
@@ -29,6 +30,7 @@ def load_objects():
     obj_dict = {}
     for obj_name, obj_data in data.items():
         obj = GameObject(
+            name = obj_data["name"],
             x = obj_data["x"],
             y = obj_data["y"],
             width = obj_data["width"],

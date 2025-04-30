@@ -1,7 +1,7 @@
 {
     "table":
     {
-        "type":"table",
+        "name":"table",
         "x": 100,
         "y": 100,
         "width": 100,
