@@ -13,7 +13,7 @@ class Enemy:
         self.x = random.randint(0, settings.SCREEN_WIDTH-64) # -64 to adjust for size of enemy
         self.y = random.randint(0, settings.SCREEN_HEIGHT-64)
         self.direction = None
-        self.speed = 2
+        self.speed = 1
         self.cooldown = 1.0
         self.last_attack = 0
 

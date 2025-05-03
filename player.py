@@ -11,8 +11,8 @@ class Player:
         self.attack = 5
         self.rect = pygame.Rect(x, y, settings.player_width, settings.player_height)  # rectangle for collision detection
         self.color = settings.BLUE # the players color
-        self.attack_width = 14
-        self.attack_height = 10
+        self.attack_width = 30
+        self.attack_height = 15
         self.attack_box = pygame.Rect(x-self.attack_width, y, self.attack_width, settings.player_height)
         self.can_move = True
         self.inventory = []
@@ -36,9 +36,9 @@ class Player:
         elif self.direction == "right":
             self.attack_box.topleft = (self.rect.x + self.rect.width, self.rect.y)
         elif self.direction == "up":
-            self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.top - self.attack_height)
+            self.attack_box.topleft = (self.rect.left-self.attack_width//2+6, self.rect.top - self.attack_height)
         elif self.direction == "down":
-            self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.bottom)               
+            self.attack_box.topleft = (self.rect.left-self.attack_width//2+6, self.rect.bottom)               
         
     def set_up_movement(self, keys):
         dx, dy = 0, 0 # the difference in the movements
