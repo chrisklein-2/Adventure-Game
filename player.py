@@ -17,8 +17,8 @@ class Player:
         self.walk_sound = pygame.mixer.Sound("assets/sounds/walking.wav")
         self.direction = "right" # which way are they facing
 
-    def update(self, keys, hud, npcs=None, objects = None):
-        self.handle_movement(keys, hud, npcs, objects)
+    def update(self, keys, hud, npcs=None, objects = None, enemies = None):
+        self.handle_movement(keys, hud, npcs, objects, enemies)
 
     def flip_attack_box(self, direction):
         if direction == "left" or direction == "right":
@@ -38,14 +38,7 @@ class Player:
         elif self.direction == "down":
             self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.bottom)               
         
-
-    # lets the player move around with arrow keys
-    def handle_movement(self, keys, hud, npcs, objects):
-        
-        if not self.can_move:
-            return
-        
-        prev_x, prev_y = self.x, self.y
+    def set_up_movement(self, keys):
         dx, dy = 0, 0 # the difference in the movements
         
         # sets up possible movement
@@ -65,7 +58,18 @@ class Player:
             if self.y < settings.SCREEN_HEIGHT - self.rect.height:
                 dy += self.speed
                 self.direction = "down"
+        return [dx,dy]
+
+    # lets the player move around with arrow keys
+    def handle_movement(self, keys, hud, npcs, objects, enemies):
         
+        if not self.can_move:
+            return
+        
+        prev_x, prev_y = self.x, self.y
+        
+        moves = self.set_up_movement(keys)
+        dx,dy = moves[0], moves[1]
         new_rect = self.rect.move(dx, dy)
         obj_blocks = False
 
@@ -81,8 +85,8 @@ class Player:
                 obj_blocks = True
 
         # collision detection for npcs
-        if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not obj_blocks:
-            
+        if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not obj_blocks and not new_rect.colliderect(enemies.rect):
+
             # update player's position after moving
             self.x += dx
             self.y += dy
