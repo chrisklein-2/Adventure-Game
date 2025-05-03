@@ -108,7 +108,7 @@
             "west": null,
             "south": null
         },
-        "npcs": ["Shopkeeper"],
+        "npcs": [],
         "objects": ["table"]
     }
 }

@@ -7,6 +7,7 @@ import npcs
 from textbox import TextBox
 import quests
 import dialogueManager
+import enemies.enemy as enemy
 from hud import HUD
 from utils.roomSwitch import force_switch_room
 from gameObject import load_objects
@@ -16,7 +17,7 @@ pygame.init()
 
 # Set up display
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
-text_box = TextBox(760, 100)  # display text, slightly smaller than full width
+text_box = TextBox(settings.SCREEN_WIDTH-300, 100)  # display text, slightly smaller than full width
 text_box.show("Use the arrow keys or WASD to move! Press E to interact!")
 font = pygame.font.Font(None, 36)  # font for text rendering
 pygame.display.set_caption(settings.StarterRoom)
@@ -37,7 +38,8 @@ def game_loop():
     npc_list = npcs.load_npcs()
     obj_list = load_objects()
     rooms = rm.load_rooms(npc_list, obj_list)  
- 
+    
+    goblin = enemy.Enemy("goblin", 100, 0)
 
     # initializes managers
     room_manager = rm.RoomManager(rooms, settings.StarterRoom)
@@ -85,9 +87,14 @@ def game_loop():
         if keys[pygame.K_q]:
             text_box.hide()
         
+
         # draw
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
+
+        
+        if room_manager.current_room.name == "Secret Tunnel":
+            goblin.draw(screen)
 
         player.draw(screen)
         text_box.draw(screen)
