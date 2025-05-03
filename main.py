@@ -17,7 +17,7 @@ pygame.init()
 # Set up display
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
 text_box = TextBox(settings.SCREEN_WIDTH-300, 100)  # display text, slightly smaller than full width
-text_box.show("Use the arrow keys or WASD to move! Press E to interact!")
+text_box.show("Use the arrow keys or WASD to move! Press E to interact! Press space to attack")
 font = pygame.font.Font(None, 36)  # font for text rendering
 pygame.display.set_caption(settings.StarterRoom)
 hud = HUD()

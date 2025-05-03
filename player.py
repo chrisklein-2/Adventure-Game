@@ -120,6 +120,7 @@ class Player:
         buffer = 50
         buffer_rect = self.rect.inflate(buffer, buffer)
         
+        # if the player presses space it attacks the enemy
         if event.key == pygame.K_SPACE:
             for enemy in enemies:
                 if self.attack_box.colliderect(enemy.rect):

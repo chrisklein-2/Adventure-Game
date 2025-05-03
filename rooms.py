@@ -82,6 +82,7 @@ class RoomManager:
         for npc in self.current_room.npcs:
             npc.wander(player)
         
+        # moves the enemies and if they die remove them from the area
         for enemy in self.current_room.enemies:
             if enemy.health>0:
                 enemy.move(player)
