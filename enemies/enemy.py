@@ -23,10 +23,27 @@ class Enemy:
 
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
+    def create_enemy(name):
+        
+        enemy_classes = {
+            "goblin": Goblin,
+            "ork": Ork,
+        }
+
+        enemy_class = enemy_classes.get(name.lower())
+        if enemy_class:
+            return enemy_class()
+        else:
+            raise ValueError(f"No enemy type found for name '{name}'")
+
     def draw(self, screen):
         screen.blit(self.image, self.rect.topleft)
 
 # subclass for a goblin
 class Goblin(Enemy):
-    def __init__(self, name="Goblin", health=20, attack=5):
+    def __init__(self, name="goblin", health=20, attack=5):
+        super().__init__(name, health, attack)
+
+class Ork(Enemy):
+    def __init__(self, name="ork", health=40, attack=10):
         super().__init__(name, health, attack)

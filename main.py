@@ -39,7 +39,7 @@ def game_loop():
     obj_list = load_objects()
     rooms = rm.load_rooms(npc_list, obj_list)  
     
-    goblin = enemy.Enemy("goblin", 100, 0)
+    goblin = enemy.Enemy.create_enemy("goblin")
 
     # initializes managers
     room_manager = rm.RoomManager(rooms, settings.StarterRoom)
@@ -87,14 +87,13 @@ def game_loop():
         if keys[pygame.K_q]:
             text_box.hide()
         
-
         # draw
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
 
         
         if room_manager.current_room.name == "Secret Tunnel":
-            goblin.draw(screen)
+            goblin.draw(screen) 
 
         player.draw(screen)
         text_box.draw(screen)

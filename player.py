@@ -27,13 +27,28 @@ class Player:
         else:
             self.attack_box.height = self.attack_width
             self.attack_box.width = settings.player_height
+        
+        # moves attack box with player
+        if self.direction == "left":
+            self.attack_box.topleft = (self.rect.x - self.attack_width, self.rect.y)
+        elif self.direction == "right":
+            self.attack_box.topleft = (self.rect.x + self.rect.width, self.rect.y)
+        elif self.direction == "up":
+            self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.top - self.attack_height)
+        elif self.direction == "down":
+            self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.bottom)               
+        
 
     # lets the player move around with arrow keys
     def handle_movement(self, keys, hud, npcs, objects):
+        
         if not self.can_move:
             return
+        
         prev_x, prev_y = self.x, self.y
         dx, dy = 0, 0 # the difference in the movements
+        
+        # sets up possible movement
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             if self.x > 0:
                 dx -= self.speed
@@ -53,6 +68,8 @@ class Player:
         
         new_rect = self.rect.move(dx, dy)
         obj_blocks = False
+
+        #collision detection for objects
         for obj in objects:
 
             if new_rect.colliderect(obj.obj_rect) and not obj.solid:
@@ -65,6 +82,7 @@ class Player:
 
         # collision detection for npcs
         if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not obj_blocks:
+            
             # update player's position after moving
             self.x += dx
             self.y += dy
@@ -72,15 +90,7 @@ class Player:
             self.rect.y = self.y
 
             self.flip_attack_box(self.direction)
-            # moves attack box with player
-            if self.direction == "left":
-                self.attack_box.topleft = (self.rect.x - self.attack_width, self.rect.y)
-            elif self.direction == "right":
-                self.attack_box.topleft = (self.rect.x + self.rect.width, self.rect.y)
-            elif self.direction == "up":
-                self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.top - self.attack_height)
-            elif self.direction == "down":
-                self.attack_box.topleft = (self.rect.left-self.attack_width//2-1, self.rect.bottom)               
+
             if self.x != prev_x or self.y != prev_y:
                 if not self.walk_sound.get_num_channels():
                     self.walk_sound.play()
