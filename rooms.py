@@ -28,7 +28,7 @@ class Room:
         for enemy in self.enemies:
             enemy.draw(screen)
 
-
+    # checks if a room exists, then returns which room it changes too or if it will be a wall
     def update(self, player, room_manager):
          # east aka right
         if player.rect.right >= settings.SCREEN_WIDTH and "east" in self.exits:

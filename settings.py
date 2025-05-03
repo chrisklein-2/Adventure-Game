@@ -21,5 +21,5 @@ IMAGE_DIR = "assets/images"
 SOUND_DIR = "assets/sounds"
 FONT_DIR = "assets/fonts"
 
-StarterRoom = "Testing"
-#StarterRoom = "town square"
+#StarterRoom = "Testing"
+StarterRoom = "town square"

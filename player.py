@@ -128,45 +128,33 @@ class Player:
                     print(enemy.health)
 
         if event.key == pygame.K_e:
+
             # cycles through all the npcs in the room
             for npc in npcs:
                 if buffer_rect.colliderect(npc.rect):
 
+                    active = False # if there is no quest active for that npc it does basic dialogue
+                    
                     # checks if the npc is in any quest
                     for quest_id in quest_manager.quests:
-
-                        # checks if npc is next to talk to and that the quest is active
                         if quest_manager.is_quest_active(quest_id) and npc.name == quest_manager.get_current_npc(quest_id):
+                            active = True
+                            quest_manager.advance_quest(quest_id, text_box, hud, self, npc, dialogue_manager)
                             quest = quest_manager.get_current_quest(quest_id)
 
-                            # initializes quest and hud
-                            if quest["current_step"]==0:
-                                quest_manager.set_up_quest(quest_id)
-                                hud.quest = quest["name"]
-                                hud.questObj = quest["steps"][0]["objective"]
-                        
-                            # finds where the player is in quest then gets the dialogue associated with it
-                            stepNum = quest["current_step"]
-                            current_step = quest["steps"][stepNum]
-
-                            dialogue_manager.start_dialogue(npc, current_step["dialogue"])
-                            dialogue_manager.advance(text_box, self, hud)
-                            quest_manager.advance_quest(quest_id, hud)
-
                             if quest["completed"]==True:
-                                self.inventory.append(quest["reward"])
-                            return
+                                return
                     
-                    # if it isn't then it just says its dialogue
-                    line = npc.check_next_line()
-                    
-                    if line:
-                        npc.interact(text_box)
-                    else:
-                        text_box.hide()
-                        npc.reset_dialogue()
-                        npc.interact(text_box)
-                    break
+                    # if there is no quest currently for that npc
+                    if not active:
+                        # checks if dialogue needs to reset/restart static dialogue from beginning                  
+                        if npc.check_next_line():
+                            npc.interact(text_box)
+                        else:
+                            text_box.hide()
+                            npc.reset_dialogue()
+                            npc.interact(text_box)
+                        break
 
     # moves player to appropriate position after changing rooms
     def reset_position(self, direction=None):
