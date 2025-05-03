@@ -83,7 +83,10 @@ class RoomManager:
             npc.wander(player)
         
         for enemy in self.current_room.enemies:
-            enemy.move(player)
+            if enemy.health>0:
+                enemy.move(player)
+            else:
+                self.current_room.enemies.remove(enemy)
         
         direction = self.current_room.update(player, self)
 

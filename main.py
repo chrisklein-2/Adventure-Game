@@ -72,7 +72,7 @@ def game_loop():
                     if text_box.visible and event.key == pygame.K_e:
                         text_box.hide()
                     # any other interaction
-                    player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager, hud)
+                    player.handle_interaction(event, room_manager.current_room.npcs, text_box, quest_manager, dialogue_manager, hud, room_manager.current_room.enemies)
 
         # handle input
         keys = pygame.key.get_pressed()

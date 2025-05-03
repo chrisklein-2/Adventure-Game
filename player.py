@@ -8,6 +8,7 @@ class Player:
         self.y = y
         self.speed = speed
         self.health = 100
+        self.attack = 5
         self.rect = pygame.Rect(x, y, settings.player_width, settings.player_height)  # rectangle for collision detection
         self.color = settings.BLUE # the players color
         self.attack_width = 14
@@ -113,12 +114,18 @@ class Player:
         pygame.draw.rect(screen, settings.BLACK, self.attack_box)
 
     # handles interactions with npcs
-    def handle_interaction(self, event, npcs, text_box, quest_manager, dialogue_manager, hud):
+    def handle_interaction(self, event, npcs, text_box, quest_manager, dialogue_manager, hud, enemies):
 
         # buffer zone for interacting with npcs
         buffer = 50
         buffer_rect = self.rect.inflate(buffer, buffer)
         
+        if event.key == pygame.K_SPACE:
+            for enemy in enemies:
+                if self.attack_box.colliderect(enemy.rect):
+                    enemy.health -= self.attack
+                    print(enemy.health)
+
         if event.key == pygame.K_e:
             # cycles through all the npcs in the room
             for npc in npcs:
