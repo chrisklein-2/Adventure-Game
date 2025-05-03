@@ -7,6 +7,7 @@ class Player:
         self.x = x
         self.y = y
         self.speed = speed
+        self.health = 100
         self.rect = pygame.Rect(x, y, settings.player_width, settings.player_height)  # rectangle for collision detection
         self.color = settings.BLUE # the players color
         self.attack_width = 14

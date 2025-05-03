@@ -13,9 +13,9 @@ class Enemy:
         self.x = random.randint(0, settings.SCREEN_WIDTH-64) # -64 to adjust for size of enemy
         self.y = random.randint(0, settings.SCREEN_HEIGHT-64)
         self.direction = None
-        self.speed = 1
-        self.last_move = time.time()
-        self.move_interval = random.uniform(1,3)
+        self.speed = 2
+        self.cooldown = 1.0
+        self.last_attack = 0
 
         if image: 
             self.image = pygame.image.load(image).convert_alpha()
@@ -44,21 +44,39 @@ class Enemy:
         # stores current position
         new_rect = self.rect.copy()
         
-        # makes the possible npc move
-        if self.direction == "up":
-            new_rect.y -= self.speed
-        elif self.direction == "down":
-            new_rect.y += self.speed
-        elif self.direction == "left":
-            new_rect.x -= self.speed
-        elif self.direction == "right":
-            new_rect.x += self.speed
+        dx = player.x - self.x
+        dy = player.y - self.y
+
+        # Determine movement direction
+        if abs(dx) > abs(dy):  # prioritize horizontal movement
+            if dx > 0:
+                new_rect.x += self.speed
+                self.direction = "right"
+            else:
+                new_rect.x -= self.speed
+                self.direction = "left"
+        else:  # prioritize vertical movement
+            if dy > 0:
+                new_rect.y += self.speed
+                self.direction = "up"
+            else:
+                new_rect.y -= self.speed
+                self.direction = "down"
+
 
         # makes sure it doesn't colide with player
         new_rect.clamp_ip(pygame.Rect(0, 0, settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
         if player and not new_rect.colliderect(player.rect):
             # makes the move
             self.rect = new_rect
+        else:
+            current_time = time.time()
+            if current_time - self.last_attack >= self.cooldown:
+                player.health -= self.attack
+                self.last_attack = current_time
+
+        self.x, self.y = self.rect.x, self.rect.y
+
 
 # subclass for a goblin
 class Goblin(Enemy):

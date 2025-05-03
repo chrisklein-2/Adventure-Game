@@ -81,6 +81,10 @@ class RoomManager:
     def update(self, player, text_box, hud):
         for npc in self.current_room.npcs:
             npc.wander(player)
+        
+        for enemy in self.current_room.enemies:
+            enemy.move(player)
+        
         direction = self.current_room.update(player, self)
 
         if not pygame.mixer.music.get_busy():
