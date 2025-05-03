@@ -1,16 +1,18 @@
 import pygame
 import json
 import settings
+import enemies.enemy as mobs
 
 class Room:
-    def __init__(self, name, description, background, music, exits, npcs=None, objects=None):
+    def __init__(self, name, description, background, music, exits, npcs=None, objects=None, enemies = None):
         self.name = name  
         self.description = description  
         self.background = background  
         self.music = music
         self.exits = exits  
         self.npcs = npcs if npcs else []  
-        self.objects = objects if objects else [] # not implemented yet
+        self.objects = objects if objects else [] 
+        self.enemies = enemies if enemies else []
         self.next_room = None
 
     def draw(self, screen):
@@ -23,6 +25,8 @@ class Room:
             npc.draw(screen)
         for obj in self.objects:
             obj.draw(screen)
+        for enemy in self.enemies:
+            enemy.draw(screen)
 
 
     def update(self, player, room_manager):
@@ -116,6 +120,12 @@ def load_rooms(npc_list, obj_list):
         obj_names = room_info.get("objects", [])
         npcs_in_room = [npc_list[name] for name in npc_names if name in npc_list]
         objs_in_room = [obj_list[name] for name in obj_names if name in obj_list]
+        enemy_names = room_info.get("enemies", [])
+        enemies = []
+
+        for enemy in enemy_names:
+            enemies.append(mobs.Enemy.create_enemy(enemy))
+
         # sets up the room
         room = Room(
             room_info['name'], 
@@ -124,7 +134,8 @@ def load_rooms(npc_list, obj_list):
             music,
             exits,
             npcs_in_room,
-            objs_in_room
+            objs_in_room,
+            enemies
         )
         # adds the room
         rooms[room_name] = room

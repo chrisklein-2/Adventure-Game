@@ -7,7 +7,6 @@ import npcs
 from textbox import TextBox
 import quests
 import dialogueManager
-import enemies.enemy as enemy
 from hud import HUD
 from utils.roomSwitch import force_switch_room
 from gameObject import load_objects
@@ -39,8 +38,6 @@ def game_loop():
     obj_list = load_objects()
     rooms = rm.load_rooms(npc_list, obj_list)  
     
-    goblin = enemy.Enemy.create_enemy("goblin")
-
     # initializes managers
     room_manager = rm.RoomManager(rooms, settings.StarterRoom)
     quest_manager = quests.QuestManager(quests.load_quests())
@@ -79,7 +76,7 @@ def game_loop():
 
         # handle input
         keys = pygame.key.get_pressed()
-        player.update(keys, hud, room_manager.current_room.npcs, room_manager.current_room.objects)
+        player.update(keys, hud, room_manager.current_room.npcs, room_manager.current_room.objects, room_manager.current_room.enemies)
 
         # update
         room_manager.update(player, text_box, hud)
@@ -91,10 +88,7 @@ def game_loop():
         screen.fill(settings.WHITE)
         room_manager.draw(screen)
 
-        
-        if room_manager.current_room.name == "Secret Tunnel":
-            goblin.draw(screen) 
-
+ 
         player.draw(screen)
         text_box.draw(screen)
         hud.draw(screen)

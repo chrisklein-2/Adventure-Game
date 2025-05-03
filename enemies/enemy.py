@@ -2,6 +2,7 @@ import pygame
 import time
 import random
 import settings
+import json
 
 class Enemy:
     def __init__(self, name, health, attack, image = None):
@@ -38,6 +39,26 @@ class Enemy:
 
     def draw(self, screen):
         screen.blit(self.image, self.rect.topleft)
+
+    def move(self, player):
+        # stores current position
+        new_rect = self.rect.copy()
+        
+        # makes the possible npc move
+        if self.direction == "up":
+            new_rect.y -= self.speed
+        elif self.direction == "down":
+            new_rect.y += self.speed
+        elif self.direction == "left":
+            new_rect.x -= self.speed
+        elif self.direction == "right":
+            new_rect.x += self.speed
+
+        # makes sure it doesn't colide with player
+        new_rect.clamp_ip(pygame.Rect(0, 0, settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
+        if player and not new_rect.colliderect(player.rect):
+            # makes the move
+            self.rect = new_rect
 
 # subclass for a goblin
 class Goblin(Enemy):

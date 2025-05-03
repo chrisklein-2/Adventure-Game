@@ -85,7 +85,7 @@ class Player:
                 obj_blocks = True
 
         # collision detection for npcs
-        if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not obj_blocks and not new_rect.colliderect(enemies.rect):
+        if not any(new_rect.colliderect(npc.rect) for npc in npcs) and not obj_blocks and not any(new_rect.colliderect(enemy.rect) for enemy in enemies):
 
             # update player's position after moving
             self.x += dx
